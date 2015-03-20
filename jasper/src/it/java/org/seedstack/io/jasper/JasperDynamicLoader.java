@@ -1,0 +1,49 @@
+/**
+ * Copyright (c) 2013-2015 by The SeedStack authors. All rights reserved.
+ *
+ * This file is part of SeedStack, An enterprise-oriented full development stack.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+package org.seedstack.io.jasper;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.seedstack.io.spi.templateloader.TemplateLoader;
+
+/**
+ * @author pierre.thirouin@ext.mpsa.com
+ *
+ */
+public class JasperDynamicLoader implements TemplateLoader<JasperTemplate> {
+
+	@Override
+	public JasperTemplate load(String name) {
+		return new JasperTemplate();
+	}
+
+	@Override
+	public Set<String> names() {
+		Set<String> set = new HashSet<String>();
+		set.add("JasperDynamicLoader");
+		return set;
+	}
+
+	@Override
+	public boolean contains(String name) {
+		return "JasperDynamicLoader".equals(name);
+	}
+
+	@Override
+	public String templateRenderer() {
+		return "JasperRenderer";
+	}
+
+    @Override
+    public String templateParser() {
+        throw new UnsupportedOperationException("Jasper module does not provide a parser");
+    }
+}

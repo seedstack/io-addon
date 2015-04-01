@@ -1,4 +1,4 @@
-SeedStack IO function [![Build status](https://travis-ci.org/seedstack/io-function.svg?branch=master)](https://travis-ci.org/seedstack/io-function)
+SeedStack IO function [![Build status](https://travis-ci.org/seedstack/io-function.svg?branch=master)](https://travis-ci.org/seedstack/io-function) [![Stories in Ready](https://badge.waffle.io/seedstack/io-function.png?label=ready&title=Ready)](https://waffle.io/seedstack/io-function)
 ==============
 
 This function provides import/export features.

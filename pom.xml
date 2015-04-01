@@ -32,7 +32,7 @@
     </developers>
 
     <properties>
-        <seed.version>2.0.0-M1-SNAPSHOT</seed.version>
+        <seed.version>2.0.0-M1</seed.version>
     </properties>
 
      <modules>
@@ -77,6 +77,13 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <scm>
+        <url>https://github.com/seedstack/io-function</url>
+        <connection>scm:git:git://github.com/seedstack/io-function.git</connection>
+        <developerConnection>scm:git:git@github.com:seedstack/io-function.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <repositories>
         <repository>

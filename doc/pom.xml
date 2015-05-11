@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.seedstack.functions.io</groupId>
         <artifactId>io-function</artifactId>
-        <version>2.0.0-M2</version>
+        <version>2.0.0-M3-SNAPSHOT</version>
     </parent>
 
     <artifactId>io-function-doc</artifactId>

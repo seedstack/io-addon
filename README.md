@@ -1,6 +1,6 @@
 # SeedStack IO function
 
-[![Build status](https://travis-ci.org/seedstack/io-function.svg?branch=master)](https://travis-ci.org/seedstack/io-function) [![Coverage Status](https://coveralls.io/repos/seedstack/io-function/badge.svg?branch=master)](https://coveralls.io/r/seedstack/io-function?branch=master)
+[![Build status](https://travis-ci.org/seedstack/io-function.svg?branch=master)](https://travis-ci.org/seedstack/io-function) [![Coverage Status](https://coveralls.io/repos/seedstack/io-function/badge.svg?branch=master)](https://coveralls.io/r/seedstack/io-function?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.seedstack.functions.io/io-function/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/org.seedstack.functions.io/io-function)
 
 This function provides import/export features.
 

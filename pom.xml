@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.seedstack</groupId>
         <artifactId>parent</artifactId>
-        <version>2.0.0-M3</version>
+        <version>2.0.0-M4-SNAPSHOT</version>
     </parent>
 
     <groupId>org.seedstack.functions.io</groupId>
@@ -32,7 +32,7 @@
     </developers>
 
     <properties>
-        <seed.version>2.0.0-M3</seed.version>
+        <seed.version>2.0.0-M4-SNAPSHOT</seed.version>
     </properties>
 
      <modules>
@@ -97,11 +97,13 @@
                         <licenseMerges>
                             <licenseMerge>Apache 2|The Apache Software License, Version 2.0</licenseMerge>
                             <licenseMerge>Apache 2|Apache License, Version 2.0</licenseMerge>
+                            <licenseMerge>Apache 2|Apache License 2.0</licenseMerge>
                             <licenseMerge>BSD|The New BSD License</licenseMerge>
                             <licenseMerge>CDDL 1.0|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</licenseMerge>
                             <licenseMerge>LGPL 2.1|GNU Lesser General Public Licence</licenseMerge>
                             <licenseMerge>LGPL 2.1|GNU General Public Library</licenseMerge>
                             <licenseMerge>LGPL 2.1|GNU Lesser General Public License</licenseMerge>
+                            <licenseMerge>LGPL 3.0|GNU Lesser Public License</licenseMerge>
                             <licenseMerge>MIT|MIT License</licenseMerge>
                         </licenseMerges>
                     </configuration>

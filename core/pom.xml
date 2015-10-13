@@ -11,34 +11,41 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>org.seedstack.functions.io</groupId>
-        <artifactId>io-function</artifactId>
-        <version>2.0.1-SNAPSHOT</version>
+        <groupId>org.seedstack.addons</groupId>
+        <artifactId>io</artifactId>
+        <version>2.1.0-M1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>io-function-core</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>io-core</artifactId>
+
+    <properties>
+        <compatibility.artifactId>io-function-core</compatibility.artifactId>
+    </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.seedstack.functions.io</groupId>
-            <artifactId>io-function-specs</artifactId>
+            <groupId>org.seedstack.addons</groupId>
+            <artifactId>io-specs</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-core-support-core</artifactId>
+            <artifactId>seed-core</artifactId>
+            <version>${seed.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.seedstack.seed</groupId>
-            <artifactId>seed-integrationtest-support-core</artifactId>
+            <artifactId>seed-testing</artifactId>
+            <version>${seed.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

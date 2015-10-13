@@ -9,18 +9,18 @@
  */
 package org.seedstack.io.fixture;
 
+import com.google.common.io.CharStreams;
 import org.seedstack.io.spi.AbstractBaseParser;
-import org.apache.commons.io.IOUtils;
 
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
  */
 @Named("custom")
 public class CustomParser<T> extends AbstractBaseParser<T> {
@@ -29,10 +29,12 @@ public class CustomParser<T> extends AbstractBaseParser<T> {
     public List<T> parse(InputStream inputStream, Class<T> clazz) {
         String data = null;
         try {
-            data = IOUtils.toString(inputStream, "UTF-8");
+            InputStreamReader r = new InputStreamReader(inputStream, "UTF-8");
+            data = CharStreams.toString(r);
+            r.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }  finally {
+        } finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
@@ -41,7 +43,7 @@ public class CustomParser<T> extends AbstractBaseParser<T> {
         }
         String[] split = data.split("-");
         List<T> result = new ArrayList<T>();
-        result.add((T)new BeanDTO(split[0], split[1]));
+        result.add((T) new BeanDTO(split[0], split[1]));
         return result;
     }
 }

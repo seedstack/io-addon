@@ -44,7 +44,6 @@
         <module>core</module>
         <module>supercsv</module>
         <module>jasper</module>
-        <module>bom</module>
     </modules>
 
     <build>

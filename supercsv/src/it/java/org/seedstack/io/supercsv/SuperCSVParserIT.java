@@ -27,7 +27,7 @@ import java.util.List;
 @RunWith(SeedITRunner.class)
 public class SuperCSVParserIT {
 
-    private static final String CSV_CONTENT = "Numéro client;Prénom;Nom;Date de naissance;Mailling;Marié;Nombre d'enfants;Citation favorite;Email;Points de fidélité\n" +
+    private static final String CSV_CONTENT = "Numéro client;Prénom;Nom;Date de naissance;Mailing;Marié;Nombre d'enfants;Citation favorite;Email;Points de fidélité\n" +
             "1;John;Dunbar;13/06/1945;\"1600 Amphitheatre Parkway\n" +
             "Mountain View, CA 94043\n" +
             "United States\";;;\"\"\"May the Force be with you.\"\" - Star Wars\";jdunbar@gmail.com;0\n" +

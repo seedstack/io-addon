@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.seedstack.addons</groupId>
+        <groupId>org.seedstack.addons.io</groupId>
         <artifactId>io</artifactId>
         <version>2.1.0-M1-SNAPSHOT</version>
     </parent>
@@ -24,7 +24,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.seedstack.addons</groupId>
+            <groupId>org.seedstack.addons.io</groupId>
             <artifactId>io-specs</artifactId>
             <version>${project.version}</version>
         </dependency>

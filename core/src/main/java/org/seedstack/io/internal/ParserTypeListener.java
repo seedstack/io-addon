@@ -10,9 +10,9 @@ package org.seedstack.io.internal;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-import org.seedstack.io.api.Parse;
-import org.seedstack.io.api.Parser;
-import org.seedstack.io.api.Parsers;
+import org.seedstack.io.Parse;
+import org.seedstack.io.Parser;
+import org.seedstack.io.Parsers;
 
 import java.lang.reflect.Field;
 

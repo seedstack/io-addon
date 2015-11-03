@@ -5,12 +5,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.internal;
+package org.seedstack.io;
 
 import com.google.inject.Inject;
-import org.seedstack.io.api.Render;
-import org.seedstack.io.api.Renderer;
-import org.seedstack.io.api.Renderers;
 import org.seedstack.io.fixture.CustomRenderer;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;

@@ -7,10 +7,10 @@
  */
 package org.seedstack.io.supercsv;
 
-import org.seedstack.io.api.RendererErrorCode;
-import org.seedstack.io.spi.templateloader.AbstractBaseStaticTemplateLoader;
+import org.seedstack.io.RendererErrorCode;
+import org.seedstack.io.spi.AbstractBaseStaticTemplateLoader;
 import org.apache.commons.lang.StringUtils;
-import org.seedstack.seed.core.api.SeedException;
+import org.seedstack.seed.SeedException;
 import org.supercsv.cellprocessor.*;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.constraint.UniqueHashCode;

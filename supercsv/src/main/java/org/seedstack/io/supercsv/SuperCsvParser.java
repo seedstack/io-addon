@@ -7,9 +7,9 @@
  */
 package org.seedstack.io.supercsv;
 
-import org.seedstack.io.api.RendererErrorCode;
+import org.seedstack.io.RendererErrorCode;
 import org.seedstack.io.spi.AbstractTemplateParser;
-import org.seedstack.seed.core.api.SeedException;
+import org.seedstack.seed.SeedException;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanReader;
 import org.supercsv.io.ICsvBeanReader;

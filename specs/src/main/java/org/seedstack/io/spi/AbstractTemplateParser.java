@@ -7,7 +7,7 @@
  */
 package org.seedstack.io.spi;
 
-import org.seedstack.io.api.Parser;
+import org.seedstack.io.Parser;
 
 import java.io.InputStream;
 import java.util.List;

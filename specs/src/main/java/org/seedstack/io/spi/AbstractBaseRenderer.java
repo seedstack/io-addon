@@ -7,7 +7,7 @@
  */
 package org.seedstack.io.spi;
 
-import org.seedstack.io.api.Renderer;
+import org.seedstack.io.Renderer;
 
 /**
  * This class should be extended when you want to add a <tt>Renderer</tt> without template. <br>

@@ -7,14 +7,13 @@
  */
 package org.seedstack.io.jasper;
 
+import org.seedstack.io.spi.TemplateLoader;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.seedstack.io.spi.templateloader.TemplateLoader;
-
 /**
  * @author pierre.thirouin@ext.mpsa.com
- *
  */
 public class JasperDynamicLoader implements TemplateLoader<JasperTemplate> {
 

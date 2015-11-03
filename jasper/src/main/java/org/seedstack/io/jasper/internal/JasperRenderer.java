@@ -5,21 +5,34 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.jasper;
+package org.seedstack.io.jasper.internal;
 
 import com.google.common.collect.Lists;
-import org.seedstack.io.api.RendererErrorCode;
-import org.seedstack.io.spi.AbstractTemplateRenderer;
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.*;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRRtfExporter;
+import net.sf.jasperreports.engine.export.JRXhtmlExporter;
+import net.sf.jasperreports.engine.export.JRXlsAbstractExporterParameter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRPptxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import org.seedstack.seed.core.api.SeedException;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.RendererErrorCode;
+import org.seedstack.io.jasper.JasperTemplate;
+import org.seedstack.io.spi.AbstractTemplateRenderer;
+import org.seedstack.seed.SeedException;
 
 import javax.inject.Named;
 import java.io.OutputStream;
@@ -38,15 +51,9 @@ class JasperRenderer extends AbstractTemplateRenderer<JasperTemplate> {
     private JasperReport jasperReport;
 
     /**
-     * Constructor.
-     */
-    JasperRenderer() {
-    }
-
-    /**
      * This implementation doesn't use the parameters attribute.
      *
-     * @see org.seedstack.io.api.Renderer#render(java.io.OutputStream, java.lang.Object, java.lang.String, java.util.Map)
+     * @see Renderer#render(java.io.OutputStream, java.lang.Object, java.lang.String, java.util.Map)
      */
     @Override
     public void render(OutputStream outputStream, Object object, String mimeType, Map<String, Object> parameters) {

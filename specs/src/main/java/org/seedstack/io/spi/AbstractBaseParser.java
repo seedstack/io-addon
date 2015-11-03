@@ -7,7 +7,7 @@
  */
 package org.seedstack.io.spi;
 
-import org.seedstack.io.api.Parser;
+import org.seedstack.io.Parser;
 
 /**
  * Class to extends to create a custom parser without template.

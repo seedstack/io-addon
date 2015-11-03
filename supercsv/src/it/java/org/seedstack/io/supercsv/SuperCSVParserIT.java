@@ -7,10 +7,10 @@
  */
 package org.seedstack.io.supercsv;
 
-import org.seedstack.io.api.Parse;
-import org.seedstack.io.api.Parser;
-import org.seedstack.io.api.Parsers;
-import org.seedstack.io.fixture.CustomerBean;
+import org.seedstack.io.Parse;
+import org.seedstack.io.Parser;
+import org.seedstack.io.Parsers;
+import org.seedstack.io.supercsv.fixture.CustomerBean;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;

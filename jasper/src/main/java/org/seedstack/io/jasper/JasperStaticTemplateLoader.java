@@ -7,11 +7,11 @@
  */
 package org.seedstack.io.jasper;
 
-import org.seedstack.io.api.RendererErrorCode;
-import org.seedstack.io.spi.templateloader.AbstractBaseStaticTemplateLoader;
+import org.seedstack.io.RendererErrorCode;
+import org.seedstack.io.spi.AbstractBaseStaticTemplateLoader;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import org.seedstack.seed.core.api.SeedException;
+import org.seedstack.seed.SeedException;
 
 import java.net.URL;
 

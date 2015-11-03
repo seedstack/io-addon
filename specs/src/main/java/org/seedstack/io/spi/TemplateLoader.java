@@ -5,11 +5,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.spi.templateloader;
+package org.seedstack.io.spi;
 
 import java.util.Set;
-
-import org.seedstack.io.spi.template.Template;
 
 /**
  * A <tt>TemplateLoader</tt> is associated to an {@link org.seedstack.io.spi.AbstractTemplateRenderer}. The association is made by the name of the

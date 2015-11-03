@@ -8,17 +8,17 @@
 package org.seedstack.io.supercsv;
 
 import com.google.inject.Inject;
-import org.seedstack.io.api.Render;
-import org.seedstack.io.api.Renderer;
-import org.seedstack.io.api.Renderers;
-import org.seedstack.io.fixture.CustomerBean;
+import org.seedstack.io.Render;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.Renderers;
+import org.seedstack.io.supercsv.fixture.CustomerBean;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.seedstack.seed.core.api.SeedException;
+import org.seedstack.seed.SeedException;
 import org.seedstack.seed.it.SeedITRunner;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.ParseBool;

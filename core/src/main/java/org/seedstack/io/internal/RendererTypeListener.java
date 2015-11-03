@@ -12,9 +12,9 @@ import java.lang.reflect.Field;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-import org.seedstack.io.api.Render;
-import org.seedstack.io.api.Renderer;
-import org.seedstack.io.api.Renderers;
+import org.seedstack.io.Render;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.Renderers;
 
 /**
  * @author pierre.thirouin@ext.mpsa.com

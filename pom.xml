@@ -33,8 +33,7 @@
     <properties>
         <seed.version>2.1.0-M1-SNAPSHOT</seed.version>
 
-        <compatibility.groupId>org.seedstack.functions.io</compatibility.groupId>
-        <compatibility.version>2.0.0</compatibility.version>
+        <compatibility.skip>true</compatibility.skip>
     </properties>
 
     <modules>

@@ -5,12 +5,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io;
+package org.seedstack.io.jasper;
 
-import org.seedstack.io.api.Render;
-import org.seedstack.io.api.Renderer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.seedstack.io.Render;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.jasper.fixtures.CustomerBean;
 import org.seedstack.seed.it.SeedITRunner;
 
 import java.io.ByteArrayOutputStream;

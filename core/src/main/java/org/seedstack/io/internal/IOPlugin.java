@@ -8,10 +8,10 @@
 package org.seedstack.io.internal;
 
 import com.google.inject.Injector;
-import org.seedstack.io.api.Parser;
-import org.seedstack.io.api.Renderer;
-import org.seedstack.io.spi.templateloader.StaticTemplateLoader;
-import org.seedstack.io.spi.templateloader.TemplateLoader;
+import org.seedstack.io.Parser;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.spi.StaticTemplateLoader;
+import org.seedstack.io.spi.TemplateLoader;
 import io.nuun.kernel.api.plugin.InitState;
 import io.nuun.kernel.api.plugin.RoundEnvironment;
 import io.nuun.kernel.api.plugin.context.Context;

@@ -7,7 +7,7 @@
  */
 package org.seedstack.io.supercsv;
 
-import org.seedstack.io.spi.template.AbstractBaseTemplate;
+import org.seedstack.io.spi.AbstractBaseTemplate;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.comment.CommentMatcher;
 import org.supercsv.comment.CommentStartsWith;

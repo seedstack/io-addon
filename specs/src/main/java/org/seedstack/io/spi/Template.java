@@ -5,20 +5,23 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.api;
+package org.seedstack.io.spi;
 
 /**
+ * Templates are use by renderers which extends {@link org.seedstack.io.spi.AbstractTemplateRenderer}.
+ * 
  * @author pierre.thirouin@ext.mpsa.com
- *         Date: 24/03/14
+ * 
  */
-public interface Parsers {
+public interface Template {
 
-    /**
-     * Returns a parser corresponding to a specific key.
-     *
-     * @param key
-     *            The key associated to the parser
-     * @return Renderer
-     */
-    Parser getParserFor(String key);
+	/**
+	 * @return template name
+	 */
+	String getName();
+
+	/**
+	 * @return template desciption
+	 */
+	String getDescription();
 }

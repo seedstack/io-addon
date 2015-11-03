@@ -7,37 +7,34 @@
  */
 package org.seedstack.io.jasper;
 
-import org.seedstack.io.spi.template.AbstractBaseTemplate;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import org.seedstack.io.spi.AbstractBaseTemplate;
 
 import java.util.Map;
 
 /**
  * @author pierre.thirouin@ext.mpsa.com
- * 
  */
-class JasperTemplate extends AbstractBaseTemplate {
+public class JasperTemplate extends AbstractBaseTemplate {
 
-	private JasperDesign jasperDesign;
+    private JasperDesign jasperDesign;
 
-	private Map<JRExporterParameter, Object> jrExporterParameters;
+    private Map<JRExporterParameter, Object> jrExporterParameters;
 
-	private String name;
+    private String name;
 
-	/**
-	 * Constructor.
-	 */
-	JasperTemplate() {
-	}
+    /**
+     * Constructor.
+     */
+    public JasperTemplate() {
+    }
 
     /**
      * Constructor.
      *
-     * @param jasperDesign
-     *            The JasperDesign object
-     * @param name
-     *            template name
+     * @param jasperDesign The JasperDesign object
+     * @param name         template name
      */
     public JasperTemplate(JasperDesign jasperDesign, String name) {
         super();
@@ -45,44 +42,42 @@ class JasperTemplate extends AbstractBaseTemplate {
         this.name = name;
     }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public String getDescription() {
-		return "This template is based on JasperDesign";
-	}
+    @Override
+    public String getDescription() {
+        return "This template is based on JasperDesign";
+    }
 
-	/**
-	 * @return the jasperDesign
-	 */
-	public JasperDesign getJasperDesign() {
-		return jasperDesign;
-	}
+    /**
+     * @return the jasperDesign
+     */
+    public JasperDesign getJasperDesign() {
+        return jasperDesign;
+    }
 
-	/**
-	 * @param jasperDesign
-	 *            the jasperDesign to set
-	 */
-	public void setJasperDesign(JasperDesign jasperDesign) {
-		this.jasperDesign = jasperDesign;
-	}
+    /**
+     * @param jasperDesign the jasperDesign to set
+     */
+    public void setJasperDesign(JasperDesign jasperDesign) {
+        this.jasperDesign = jasperDesign;
+    }
 
-	/**
-	 * @return the jrExporterParameters
-	 */
-	public Map<JRExporterParameter, Object> getJrExporterParameters() {
-		return jrExporterParameters;
-	}
+    /**
+     * @return the jrExporterParameters
+     */
+    public Map<JRExporterParameter, Object> getJrExporterParameters() {
+        return jrExporterParameters;
+    }
 
-	/**
-	 * @param jrExporterParameters
-	 *            the jrExporterParameters to set
-	 */
-	public void setJrExporterParameters(Map<JRExporterParameter, Object> jrExporterParameters) {
-		this.jrExporterParameters = jrExporterParameters;
-	}
+    /**
+     * @param jrExporterParameters the jrExporterParameters to set
+     */
+    public void setJrExporterParameters(Map<JRExporterParameter, Object> jrExporterParameters) {
+        this.jrExporterParameters = jrExporterParameters;
+    }
 
 }

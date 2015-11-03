@@ -5,23 +5,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.spi.template;
+package org.seedstack.io;
 
 /**
- * Class to be extended to create a new template.
- *
  * @author pierre.thirouin@ext.mpsa.com
- *
+ *         Date: 24/03/14
  */
-public abstract class AbstractBaseTemplate implements Template {
+public interface Parsers {
 
-	/**
-	 * @return the name
-	 */
-	public abstract String getName();
-
-	/**
-	 * @return the description
-	 */
-	public abstract String getDescription();
+    /**
+     * Returns a parser corresponding to a specific key.
+     *
+     * @param key
+     *            The key associated to the parser
+     * @return Renderer
+     */
+    Parser getParserFor(String key);
 }

@@ -9,13 +9,13 @@ package org.seedstack.io.internal;
 
 
 import com.google.inject.MembersInjector;
-import org.seedstack.io.api.Parse;
-import org.seedstack.io.api.Parser;
-import org.seedstack.io.api.Parsers;
-import org.seedstack.io.api.RendererErrorCode;
+import org.seedstack.io.Parse;
+import org.seedstack.io.Parser;
+import org.seedstack.io.Parsers;
+import org.seedstack.io.RendererErrorCode;
 import io.nuun.kernel.api.plugin.PluginException;
 import org.apache.commons.lang.StringUtils;
-import org.seedstack.seed.core.api.SeedException;
+import org.seedstack.seed.SeedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

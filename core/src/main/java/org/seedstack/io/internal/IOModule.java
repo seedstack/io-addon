@@ -10,11 +10,11 @@ package org.seedstack.io.internal;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
-import org.seedstack.io.api.Parser;
-import org.seedstack.io.api.Parsers;
-import org.seedstack.io.api.Renderer;
-import org.seedstack.io.api.Renderers;
-import org.seedstack.io.spi.templateloader.TemplateLoader;
+import org.seedstack.io.Parser;
+import org.seedstack.io.Parsers;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.Renderers;
+import org.seedstack.io.spi.TemplateLoader;
 
 import java.util.List;
 import java.util.Map;

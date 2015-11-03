@@ -5,24 +5,26 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.api;
+package org.seedstack.io;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Render annotation marks fields which will be automatically valued with the renderer corresponding to the value of the annotation.
- * 
+ * Parse annotation defines the parser to inject.
+ *
  * @author pierre.thirouin@ext.mpsa.com
- * 
+ *         Date: 24/03/14
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Render {
+public @interface Parse {
 
-	/**
-	 * @return renderer key
-	 */
-	String value();
+    /**
+     * Parser key.
+     * @return
+     */
+    String value();
+
 }

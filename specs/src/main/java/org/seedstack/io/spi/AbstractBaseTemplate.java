@@ -5,23 +5,23 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.spi.template;
+package org.seedstack.io.spi;
 
 /**
- * Templates are use by renderers which extends {@link org.seedstack.io.spi.AbstractTemplateRenderer}.
- * 
+ * Class to be extended to create a new template.
+ *
  * @author pierre.thirouin@ext.mpsa.com
- * 
+ *
  */
-public interface Template {
+public abstract class AbstractBaseTemplate implements Template {
 
 	/**
-	 * @return template name
+	 * @return the name
 	 */
-	String getName();
+	public abstract String getName();
 
 	/**
-	 * @return template desciption
+	 * @return the description
 	 */
-	String getDescription();
+	public abstract String getDescription();
 }

@@ -4,6 +4,7 @@ addon: "I/O"
 repo: "https://github.com/seedstack/io-addon"
 author: "SeedStack"
 description: "Provides a simple way to import and export data in multiple formats: CSV, PDF, Office documents, ..."
+version: "2.1.0"
 min-version: "15.7+"
 menu:
     IOAddon:
@@ -12,12 +13,12 @@ menu:
 
 The IO add-on gives simple way to export and import data in multiple formats. This add-on comes with two modules:
 
- * CSV through SuperCSV,
+ * CSV through [SuperCSV](http://super-csv.github.io/super-csv),
  * JasperReports.
 
 To use the IO add-on, add the module `io-supercsv` and/or the module `io-jasper` to your project classpath.
 
-    <{{< dependency "org.seedstack.addons.io" "io-???" >}}
+{{< dependency g="org.seedstack.addons.io" a="io-???" >}}
 
 # Writing CSV files
 

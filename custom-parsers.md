@@ -3,26 +3,26 @@ title: "Custom parsers"
 addon: "I/O"
 menu:
     IOAddon:
-        weight: 40
+        weight: 30
 ---
 
-If available parsers doesn't fit your needs, IO add-on provide a SPI (Service Provider Interface) for custom parsers.
-There is three kind of parser available: parser with static template, dynamic template or without template.
+If available parsers don't fit your needs, the IO add-on provide an SPI for custom parsers. There are three options to
+provide your own parser: static template, dynamic template or without template.
 
-# Parser with static template
-Parsers with static template initialize template with files from `META-INF/templates` directory. For instance, `
-JasperTemplate` is initialized with a `.jrxml` file.
+# Static template
 
-Create a new one, require to extend three classes: `AbstractBaseTemplate`, `AbstractBaseStaticTemplateLoader` and
-`AbstractTemplateParser`.
+In this case, templates are loaded from files within the `META-INF/templates` directory. You need to extend three classes:
+{{< java "org.seedstack.io.spi.AbstractBaseStaticTemplateLoader" >}}, {{< java "org.seedstack.io.spi.AbstractBaseTemplate" >}} and
+{{< java "org.seedstack.io.spi.AbstractTemplateParser" >}}.
 
-- Template have all information on the file to parse.
-- Parser is able to transform an `InputStream` with the template into a model.
-- Template loader initialize template with corresponding resource from `META-INF/template` directory
+- The template loader loads the template from the corresponding resource in `META-INF/templates` directory.
+- The template have all information necessary to parse a file.
+- The parser is able to parse an InputStream and produce a model, using the template information.
 
-# Parser with dynamic template
+# Dynamic template
 
-For dynamic template directly implement `TemplateLoader` interface instead of `AbstractBaseStaticTemplateLoader`.
+In the case of a dynamic template, your loader will completely handle the loading logic. Implement the {{< java "org.seedstack.io.spi.TemplateLoader" >}}
+interface:
 
 	public class MyDynamicTemplateLoader implements TemplateLoader<MyTemplate> {
 
@@ -58,10 +58,11 @@ For dynamic template directly implement `TemplateLoader` interface instead of `A
 
 	}
 
-# Parser without template
+# Without template
 
-Extends `AbstractBaseParser` and annotate it with `Named`.
-
+A parser without template doesn't need any information to parse the model. It is often the case of specific parsers
+that are not meant to be reusable. Extend {{< java "org.seedstack.io.spi.AbstractBaseParser" >}} and annotate it
+with {{< java "javax.inject.Named" "@" >}}:
 
 	@Named("custom")
 	public class CustomParser<PARSED_OBJECT> extends AbstractBaseParser<PARSED_OBJECT> {
@@ -77,7 +78,7 @@ Extends `AbstractBaseParser` and annotate it with `Named`.
 
 	}
 
-Then call it as usual:
+You can inject it as usual:
 
 	@Parse("custom")
 	Parser parser;

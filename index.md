@@ -15,21 +15,14 @@ The IO add-on gives simple way to export and import data in multiple formats. Th
  * CSV through SuperCSV,
  * JasperReports.
 
-# Quick start
+To use the IO add-on, add the module `io-supercsv` and/or the module `io-jasper` to your project classpath.
 
-To use the IO add-on, enable it in your application by adding the maven dependency corresponding to the expected
-module:
-
-	<dependency>
-	    <groupId>org.seedstack.addons</groupId>
-	    <artifactId>io-???</artifactId>
-	</dependency>
-
-...where ??? is jasper or supercsv.
+    <{{< dependency "org.seedstack.addons.io" "io-???" >}}
 
 # Writing CSV files
 
-To export a POJO `CustomerBean` in a CSV file, import the io-supercsv module. Then to export, use the following POJO.
+To export a POJO to a CSV file, make sure the `io-supercsv` module is in your classpath. We will export
+the following POJO:
 
 	public class CustomerBean {
 	
@@ -37,24 +30,20 @@ To export a POJO `CustomerBean` in a CSV file, import the io-supercsv module. Th
 	    
 	    private String lastName;
 	    
-		private int age
-	    ...
+		private int age;
+
 	}
 
-Add a `customerbean.csv.properties` file in `META-INF/templates` directory.
-
-`customerbean.csv.properties` content:
+Add a `customerbean.csv.properties` file in `META-INF/templates` directory:
 
 	columns=firstName,lastName,age
-
 	firstName.name=First name
 	lastName.name=Last name
 	age.name=Age
 	age.type=int
 
 
-Then inject a renderer as described below.
-
+In your code, inject a renderer:
 
 	@Render("customerbean")
 	private Renderer renderer;
@@ -65,7 +54,7 @@ Then inject a renderer as described below.
 	    renderer.render(os, customers);
 	}
 
-Or programmatically set the renderer name.
+Or programatically obtain the required renderer:
 
 	@Inject
 	private Renderers renderers;
@@ -76,7 +65,8 @@ Or programmatically set the renderer name.
 	}
 
 # Reading CSV files
-To import a POJO, the configuration is the same as export configuration. Then inject a `Parser` with the `@Parse` anntation as below.
+
+To import the POJO, the configuration is the same as export configuration. Then inject a `Parser` with the `@Parse` annotation:
 
 	@Parse("customerbean")
 	private Parser<CustomerBean> parser;
@@ -87,7 +77,7 @@ To import a POJO, the configuration is the same as export configuration. Then in
 	    customers = parser.parse(is, CustomerBean.class);
 	} 
 
-Or use `Parsers` to programmatically set the parser name.
+Or use `Parsers` to programatically obtain the required parser:
   
 	@Inject
 	private Parsers parsers;
@@ -99,8 +89,9 @@ Or use `Parsers` to programmatically set the parser name.
 	}
 
 # Writing PDF files
-To use jasper, add the io-jasper module and put a JRXML file in `META-INF/templates` directory.
-For instance with a `pdftemplate.jrxml`:
+
+PDF files are generated with JasperReports. Make sure to have the `io-jasper` module in your classpath and put a JRXML
+file in `META-INF/templates` directory. Example:
 
 	@Render("pdftemplate")
 	Renderer renderer;
@@ -111,8 +102,9 @@ For instance with a `pdftemplate.jrxml`:
 	    renderer.render(os, customers, "application/pdf", parameters);
 	}
 
-You can pass any Jasper parameter (like `SUBREPORT_DIR`) using the fourth parameter which is a `Map<String, Object>`.
+You can pass any Jasper parameter (like `SUBREPORT_DIR`) using the fourth parameter or `render()`which is a
+`Map<String, Object>`.
 
-*NB: The Jasper module does not provide a parser.*
-
-
+{{% callout info %}}
+The Jasper module does not provide a parser.
+{{% /callout %}}

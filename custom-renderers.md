@@ -3,24 +3,26 @@ title: "Custom renderers"
 addon: "I/O"
 menu:
     IOAddon:
-        weight: 30
+        weight: 20
 ---
 
+If available renderers don't fit your needs, the IO add-on provides an SPI to register your custom renderers. There are
+three options to provide your own renderer: static template, dynamic template or without template.
 
-If available renderers doesn't fit your needs, IO add-on provide a SPI (Service Provider Interface) for custom renderers. There is three kind of renderer available: renderer with static template, dynamic template or without template.
+# Static template
 
-# Renderer with static template
-Renderers with static template initialize template with files from `META-INF/templates` directory. For instance, `JasperTemplate` is initialized with a `.jrxml` file.
+In this case, templates are loaded from files within the `META-INF/templates` directory. You need to extend three classes:
+{{< java "org.seedstack.io.spi.AbstractBaseStaticTemplateLoader" >}}, {{< java "org.seedstack.io.spi.AbstractBaseTemplate" >}} and
+{{< java "org.seedstack.io.spi.AbstractTemplateRenderer" >}}.
 
-Create a new one, require to extend three classes: `AbstractBaseTemplate`, `AbstractBaseStaticTemplateLoader` and `AbstractTemplateRenderer`. 
+- The template loader loads the template from the corresponding resource in `META-INF/templates` directory.
+- The template have all information necessary to render a model.
+- The renderer is able to render a model into an OutputStream, using the template information.
 
-- Template have all informations on the file to render. 
-- Renderer is able to transform a model with the template in an outputstream.
-- Template loader initialize template with corresponding resource from `META-INF/template` directory
+# Dynamic template
 
-# Renderer with dynamic template
-
-For dynamic template directly implement `TemplateLoader` interface instead of `AbstractBaseStaticTemplateLoader`.
+In the case of a dynamic template, your loader will completely handle the loading logic. Implement the {{< java "org.seedstack.io.spi.TemplateLoader" >}}
+interface:
 
 	public class MyDynamicTemplateLoader implements TemplateLoader<MyTemplate> {
 
@@ -50,15 +52,15 @@ For dynamic template directly implement `TemplateLoader` interface instead of `A
 
 	}
 
-# Renderer without template
+# Without template
 
-Extends `AbstractBaseRenderer` and annotate it with `Named`.
-
+A renderer without template doesn't need any information to render the model. It is often the case of specific renderers
+that are not meant to be reusable. Extend {{< java "org.seedstack.io.spi.AbstractBaseRenderer" >}} and annotate it
+with {{< java "javax.inject.Named" "@" >}}.
 
 	@Named("custom")
 	public class CustomRenderer extends AbstractBaseRenderer {
-	
-		
+
 		public CustomRenderer() {
 		}
 	
@@ -78,7 +80,7 @@ Extends `AbstractBaseRenderer` and annotate it with `Named`.
 	
 	}
 
-Then call it as usual:
+You can inject it as usual:
 
 	@Renderer("custom")
 	Renderer renderer;

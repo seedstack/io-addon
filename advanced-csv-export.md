@@ -1,15 +1,13 @@
 ---
-title: "CSV"
+title: "Advanced CSV"
 addon: "I/O"
 menu:
     IOAddon:
-        weight: 20
+        weight: 40
 ---
 
-CSV template is define with a `*.csv.properties` file.
-This properties gives you options to change general configuration, define format or provide custom validation.
-
-The available options are:
+A CSV template is defined with a `*.csv.properties` file. This properties gives you options to change general
+configuration, define format or provide custom validation. The available options are:
 
  <table class="table table-bordered">
  <thead>
@@ -79,7 +77,7 @@ The available options are:
  </tbody>
  </table>
 
-For instance:
+# Example
 	
 	# General configuration
 	quote="

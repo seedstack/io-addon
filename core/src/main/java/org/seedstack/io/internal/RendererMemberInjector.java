@@ -21,55 +21,46 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
 
 /**
+ * @param <T> template
  * @author pierre.thirouin@ext.mpsa.com
- * @param <T>
- *            template
  */
 class RendererMemberInjector<T> implements MembersInjector<T> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RendererMemberInjector.class);
-	private final Field field;
-	private final Renderers renderers;
-	private final Render annotation;
+    private static final Logger LOGGER = LoggerFactory.getLogger(RendererMemberInjector.class);
+    private final Field field;
+    private final Renderers renderers;
+    private final Render annotation;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param field
-	 *            where inject the renderer
-	 * @param renderers
-	 *            object which get all the renderers
-	 */
-	RendererMemberInjector(Field field, Renderers renderers) {
-		this.field = field;
-		this.renderers = renderers;
-		this.annotation = field.getAnnotation(Render.class);
+    /**
+     * Constructor.
+     *
+     * @param field     where inject the renderer
+     * @param renderers object which get all the renderers
+     */
+    RendererMemberInjector(Field field, Renderers renderers) {
+        this.field = field;
+        this.renderers = renderers;
+        this.annotation = field.getAnnotation(Render.class);
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.google.inject.MembersInjector#injectMembers(java.lang.Object)
-	 */
-	@Override
-	public void injectMembers(T instance) {
+    @Override
+    public void injectMembers(T instance) {
+        // Pre verification
+        if (StringUtils.isEmpty(annotation.value())) {
+            LOGGER.error("Value for annotation {} on field {} can not be null or empty.", annotation.annotationType(),
+                    field.toGenericString());
+            throw new PluginException("Value for annotation %s on field %s can not be null or empty.",
+                    annotation.annotationType(), field.toGenericString());
+        }
 
-		// Pre verification //
-		if (StringUtils.isEmpty(annotation.value())) {
-			LOGGER.error("Value for annotation {} on field {} can not be null or empty.", annotation.annotationType(),
-					field.toGenericString());
-			throw new PluginException("Value for annotation %s on field %s can not be null or empty.",
-					annotation.annotationType(), field.toGenericString());
-		}
-
-		try {
-			Renderer renderer = renderers.getRendererFor(annotation.value());
-			field.setAccessible(true);
-			field.set(instance, renderer);
-		} catch (Exception e) {
-			throw SeedException.wrap(e, RendererErrorCode.LOAD_TEMPLATE_EXCEPTION);
-		}
-	}
+        try {
+            Renderer renderer = renderers.getRendererFor(annotation.value());
+            field.setAccessible(true);
+            field.set(instance, renderer);
+        } catch (Exception e) {
+            throw SeedException.wrap(e, RendererErrorCode.LOAD_TEMPLATE_EXCEPTION);
+        }
+    }
 
 }

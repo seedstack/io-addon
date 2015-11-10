@@ -8,12 +8,7 @@
 package org.seedstack.io.internal;
 
 import com.google.inject.Injector;
-import org.seedstack.io.Parser;
-import org.seedstack.io.Renderer;
-import org.seedstack.io.spi.StaticTemplateLoader;
-import org.seedstack.io.spi.TemplateLoader;
 import io.nuun.kernel.api.plugin.InitState;
-import io.nuun.kernel.api.plugin.RoundEnvironment;
 import io.nuun.kernel.api.plugin.context.Context;
 import io.nuun.kernel.api.plugin.context.InitContext;
 import io.nuun.kernel.api.plugin.request.ClasspathScanRequest;
@@ -21,6 +16,10 @@ import io.nuun.kernel.api.plugin.request.ClasspathScanRequestBuilder;
 import io.nuun.kernel.core.AbstractPlugin;
 import org.apache.commons.lang.StringUtils;
 import org.kametic.specifications.Specification;
+import org.seedstack.io.Parser;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.spi.StaticTemplateLoader;
+import org.seedstack.io.spi.TemplateLoader;
 import org.seedstack.seed.core.utils.SeedSpecifications;
 
 import javax.inject.Inject;
@@ -36,9 +35,9 @@ import java.util.regex.Pattern;
 public class IOPlugin extends AbstractPlugin {
 
     private static final String META_INF_TEMPLATES = "META-INF/templates/";
+
     private List<StaticTemplateLoader<?>> templateLoaderRegexs = new ArrayList<StaticTemplateLoader<?>>();
     private List<TemplateLoader<?>> templateLoaders = new ArrayList<TemplateLoader<?>>();
-    private RoundEnvironment roundEnvironment;
     private Specification<Class<?>> templateLoaderSpec;
     private Specification<Class<?>> rendererSpec;
     private Specification<Class<?>> parserSpec;
@@ -61,15 +60,15 @@ public class IOPlugin extends AbstractPlugin {
     @SuppressWarnings("unchecked")
     @Override
     public Collection<ClasspathScanRequest> classpathScanRequests() {
-        // Scan templateloaders
-        if (roundEnvironment.firstRound()) {
+        // Scan templateLoaders
+        if (round.isFirst()) {
             templateLoaderSpec = and(descendantOf(TemplateLoader.class), not(SeedSpecifications.classIsInterface()), not(SeedSpecifications.classIsAbstract()));
             rendererSpec = and(descendantOf(Renderer.class), not(SeedSpecifications.classIsInterface()), not(SeedSpecifications.classIsAbstract()));
             parserSpec = and(descendantOf(Parser.class), not(SeedSpecifications.classIsInterface()), not(SeedSpecifications.classIsAbstract()));
 
             return classpathScanRequestBuilder().specification(templateLoaderSpec).specification(rendererSpec).specification(parserSpec).build();
         } else {
-            // for each templateloader with regex, parse "META-INF/templates/" directory to find corresponding templates
+            // for each templateLoader with regex, parse "META-INF/templates/" directory to find corresponding templates
             ClasspathScanRequestBuilder classpathScanRequestBuilder = classpathScanRequestBuilder();
             for (StaticTemplateLoader<?> templateLoader : templateLoaderRegexs) {
                 classpathScanRequestBuilder.resourcesRegex(templateLoader.templatePathRegex());
@@ -81,7 +80,7 @@ public class IOPlugin extends AbstractPlugin {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public InitState init(InitContext initContext) {
-        if (roundEnvironment.firstRound()) {
+        if (round.isFirst()) {
             Map<Specification, Collection<Class<?>>> scannedClassesByAnnotationClass = initContext.scannedTypesBySpecification();
 
             // Gets all implementation of TemplateLoader
@@ -170,12 +169,6 @@ public class IOPlugin extends AbstractPlugin {
         for (TemplateLoader<?> templateLoader : templateLoaders) {
             injector.injectMembers(templateLoader);
         }
-    }
-
-    @Override
-    public void provideRoundEnvironment(RoundEnvironment roundEnvironment) {
-        this.roundEnvironment = roundEnvironment;
-
     }
 
     @Override

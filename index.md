@@ -4,8 +4,8 @@ addon: "I/O"
 repo: "https://github.com/seedstack/io-addon"
 author: "SeedStack"
 description: "Provides a simple way to import and export data in multiple formats: CSV, PDF, Office documents, ..."
-version: "2.1.0"
-min-version: "15.7+"
+min-version: "15.11+"
+backend: true
 menu:
     IOAddon:
         weight: 10

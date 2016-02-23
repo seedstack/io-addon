@@ -1,11 +1,20 @@
 ---
-title: "Overview"
-addon: "I/O"
+title: "Basics"
+name: "Document import/export"
 repo: "https://github.com/seedstack/io-addon"
 author: "SeedStack"
 description: "Provides a simple way to import and export data in multiple formats: CSV, PDF, Office documents, ..."
 min-version: "15.11+"
 backend: true
+weight: -1
+tags:
+    - "document"
+    - "export"
+    - "import"
+    - "csv"
+    - "pdf"
+zones:
+    - Addons
 menu:
     IOAddon:
         weight: 10

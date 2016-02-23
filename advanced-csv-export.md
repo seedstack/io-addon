@@ -1,6 +1,11 @@
 ---
 title: "Advanced CSV"
-addon: "I/O"
+name: "Document import/export"
+zones:
+    - Addons
+tags:
+    - "export"
+    - "csv"
 menu:
     IOAddon:
         weight: 40

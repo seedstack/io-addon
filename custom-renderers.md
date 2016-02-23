@@ -1,6 +1,13 @@
 ---
 title: "Custom renderers"
-addon: "I/O"
+name: "Document import/export"
+zones:
+    - Addons
+tags:
+    - "renderer"
+    - "export"
+    - "template"
+    - "document"
 menu:
     IOAddon:
         weight: 20

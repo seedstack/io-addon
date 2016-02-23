@@ -1,6 +1,13 @@
 ---
 title: "Custom parsers"
-addon: "I/O"
+name: "Document import/export"
+zones:
+    - Addons
+tags:
+    - "parser"
+    - "document"
+    - "import"
+    - "template"
 menu:
     IOAddon:
         weight: 30

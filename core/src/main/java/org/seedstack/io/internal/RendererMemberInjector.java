@@ -8,35 +8,23 @@
 package org.seedstack.io.internal;
 
 import com.google.inject.MembersInjector;
-import org.seedstack.io.Render;
-import org.seedstack.io.Renderer;
-import org.seedstack.io.RendererErrorCode;
-import org.seedstack.io.Renderers;
 import io.nuun.kernel.api.plugin.PluginException;
 import org.apache.commons.lang.StringUtils;
+import org.seedstack.io.Render;
+import org.seedstack.io.Renderer;
+import org.seedstack.io.Renderers;
 import org.seedstack.seed.SeedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 
-/**
- * @param <T> template
- * @author pierre.thirouin@ext.mpsa.com
- */
 class RendererMemberInjector<T> implements MembersInjector<T> {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(RendererMemberInjector.class);
     private final Field field;
     private final Renderers renderers;
     private final Render annotation;
 
-    /**
-     * Constructor.
-     *
-     * @param field     where inject the renderer
-     * @param renderers object which get all the renderers
-     */
     RendererMemberInjector(Field field, Renderers renderers) {
         this.field = field;
         this.renderers = renderers;
@@ -59,8 +47,7 @@ class RendererMemberInjector<T> implements MembersInjector<T> {
             field.setAccessible(true);
             field.set(instance, renderer);
         } catch (Exception e) {
-            throw SeedException.wrap(e, RendererErrorCode.LOAD_TEMPLATE_EXCEPTION);
+            throw SeedException.wrap(e, IoErrorCode.ERROR_LOADING_TEMPLATE);
         }
     }
-
 }

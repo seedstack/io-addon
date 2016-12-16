@@ -14,10 +14,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *
- */
 @Named("custom")
 public class CustomRenderer extends AbstractBaseRenderer {
 

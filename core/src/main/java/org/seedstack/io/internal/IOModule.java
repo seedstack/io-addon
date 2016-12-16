@@ -20,27 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-/**
- * <p/>
- * This module bind the renderer (named with the name of a template) to a renderer provider.
- *
- * @author pierre.thirouin@ext.mpsa.com
- */
 class IOModule extends AbstractModule {
+    private final List<TemplateLoader<?>> templateLoaders;
+    private final Map<String, Class<Renderer>> mapRenderer;
+    private final Map<String, Class<Parser>> mapParser;
 
-    private List<TemplateLoader<?>> templateLoaders;
-
-    private Map<String, Class<Renderer>> mapRenderer;
-
-    private Map<String, Class<Parser>> mapParser;
-
-    /**
-     * Constructor.
-     *
-     * @param templateLoaders list of TemplateLoader
-     * @param mapRenderer renderer to bind
-     * @param mapParser parser to bind
-     */
     IOModule(List<TemplateLoader<?>> templateLoaders, Map<String, Class<Renderer>> mapRenderer, Map<String, Class<Parser>> mapParser) {
         this.templateLoaders = templateLoaders;
         this.mapRenderer = mapRenderer;
@@ -49,7 +33,6 @@ class IOModule extends AbstractModule {
 
     @Override
     protected void configure() {
-
         //--- RENDERERS
 
         // Bind the Renderers class
@@ -77,7 +60,5 @@ class IOModule extends AbstractModule {
 
         // Bind the TypeListener for Parser
         bindListener(Matchers.any(), new ParserTypeListener(parsers));
-
     }
-
 }

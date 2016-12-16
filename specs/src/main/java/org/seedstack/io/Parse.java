@@ -13,9 +13,6 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Parse annotation defines the parser to inject.
- *
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 24/03/14
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

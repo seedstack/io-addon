@@ -13,8 +13,6 @@ import org.seedstack.io.Parser;
  * Class to extends to create a custom parser without template.
  *
  * @param <PARSED_OBJECT> parsed object
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
  */
 public abstract class AbstractBaseParser<PARSED_OBJECT> implements Parser<PARSED_OBJECT> {
 }

@@ -17,9 +17,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- */
 @Named("custom")
 public class CustomParser<T> extends AbstractBaseParser<T> {
 
@@ -40,7 +37,7 @@ public class CustomParser<T> extends AbstractBaseParser<T> {
             }
         }
         String[] split = data.split("-");
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>();
         result.add((T) new BeanDTO(split[0], split[1]));
         return result;
     }

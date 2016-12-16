@@ -16,20 +16,9 @@ import org.seedstack.io.Parsers;
 
 import java.lang.reflect.Field;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
- */
 class ParserTypeListener implements TypeListener {
-
     private final Parsers parsers;
 
-    /**
-     * Constructor.
-     *
-     * @param parsers
-     *            object which get all the parsers
-     */
     ParserTypeListener(Parsers parsers) {
         this.parsers = parsers;
     }
@@ -38,7 +27,7 @@ class ParserTypeListener implements TypeListener {
     public <T> void hear(TypeLiteral<T> type, TypeEncounter<T> encounter) {
         for (Field field : type.getRawType().getDeclaredFields()) {
             if (field.getType() == Parser.class && field.isAnnotationPresent(Parse.class)) {
-                encounter.register(new ParserMemberInjector<T>(field, parsers));
+                encounter.register(new ParserMemberInjector<>(field, parsers));
             }
         }
     }

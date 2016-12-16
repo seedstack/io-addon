@@ -7,10 +7,6 @@
  */
 package org.seedstack.io.fixture;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
- */
 public class BeanDTO {
 
     private String a;

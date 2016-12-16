@@ -8,16 +8,13 @@
 package org.seedstack.io;
 
 /**
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 24/03/14
+ * Facade to access parsers.
  */
 public interface Parsers {
-
     /**
      * Returns a parser corresponding to a specific key.
      *
-     * @param key
-     *            The key associated to the parser
+     * @param key The key associated to the parser
      * @return Renderer
      */
     Parser getParserFor(String key);

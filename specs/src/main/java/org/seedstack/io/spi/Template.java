@@ -9,19 +9,16 @@ package org.seedstack.io.spi;
 
 /**
  * Templates are use by renderers which extends {@link org.seedstack.io.spi.AbstractTemplateRenderer}.
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * 
  */
 public interface Template {
 
-	/**
-	 * @return template name
-	 */
-	String getName();
+    /**
+     * @return template name
+     */
+    String getName();
 
-	/**
-	 * @return template desciption
-	 */
-	String getDescription();
+    /**
+     * @return template desciption
+     */
+    String getDescription();
 }

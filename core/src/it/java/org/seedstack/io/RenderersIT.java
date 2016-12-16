@@ -8,17 +8,14 @@
 package org.seedstack.io;
 
 import com.google.inject.Inject;
-import org.seedstack.io.fixture.CustomRenderer;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.seedstack.io.fixture.CustomRenderer;
 import org.seedstack.seed.it.SeedITRunner;
 
 import java.io.ByteArrayOutputStream;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- */
 @RunWith(SeedITRunner.class)
 public class RenderersIT {
 

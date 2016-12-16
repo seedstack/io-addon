@@ -40,10 +40,6 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *
- */
 @RunWith(SeedITRunner.class)
 public class SuperCSVRendererIT {
 	/**
@@ -98,7 +94,7 @@ public class SuperCSVRendererIT {
 	 */
 	@Before
 	public void setUp() {
-		customers = new ArrayList<CustomerBean>();
+		customers = new ArrayList<>();
 		customers.add(john);
 		customers.add(bob);
 	}
@@ -211,7 +207,7 @@ public class SuperCSVRendererIT {
 		try {
 			beanReader = new CsvBeanReader(new InputStreamReader(new FileInputStream(file), encoding), prefs);
 			beanReader.getHeader(true);
-			List<CustomerBean> customers = new ArrayList<CustomerBean>();
+			List<CustomerBean> customers = new ArrayList<>();
 			CustomerBean customer;
 			while ((customer = beanReader.read(CustomerBean.class, header, processors)) != null) {
 				customers.add(customer);

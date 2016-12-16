@@ -7,23 +7,19 @@
  */
 package org.seedstack.io.supercsv;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.seedstack.io.Parse;
 import org.seedstack.io.Parser;
 import org.seedstack.io.Parsers;
 import org.seedstack.io.supercsv.fixture.CustomerBean;
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.seedstack.seed.it.SeedITRunner;
 
 import javax.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
- */
 @RunWith(SeedITRunner.class)
 public class SuperCSVParserIT {
 
@@ -42,7 +38,7 @@ public class SuperCSVParserIT {
     private Parsers parsers;
 
     @Test
-    public void parser_are_injected () {
+    public void parser_are_injected() {
         Assertions.assertThat(parser).isNotNull();
         Assertions.assertThat(parsers.getParserFor("pojo")).isNotNull();
     }

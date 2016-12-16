@@ -12,32 +12,28 @@ import org.seedstack.io.spi.TemplateLoader;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- */
 public class JasperDynamicLoader implements TemplateLoader<JasperTemplate> {
+    @Override
+    public JasperTemplate load(String name) {
+        return new JasperTemplate(name);
+    }
 
-	@Override
-	public JasperTemplate load(String name) {
-		return new JasperTemplate();
-	}
+    @Override
+    public Set<String> names() {
+        Set<String> set = new HashSet<>();
+        set.add("JasperDynamicLoader");
+        return set;
+    }
 
-	@Override
-	public Set<String> names() {
-		Set<String> set = new HashSet<String>();
-		set.add("JasperDynamicLoader");
-		return set;
-	}
+    @Override
+    public boolean contains(String name) {
+        return "JasperDynamicLoader".equals(name);
+    }
 
-	@Override
-	public boolean contains(String name) {
-		return "JasperDynamicLoader".equals(name);
-	}
-
-	@Override
-	public String templateRenderer() {
-		return "JasperRenderer";
-	}
+    @Override
+    public String templateRenderer() {
+        return "JasperRenderer";
+    }
 
     @Override
     public String templateParser() {

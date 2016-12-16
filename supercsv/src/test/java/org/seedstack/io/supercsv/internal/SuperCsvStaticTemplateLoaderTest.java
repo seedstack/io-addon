@@ -5,20 +5,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.supercsv;
+package org.seedstack.io.supercsv.internal;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.seedstack.io.supercsv.SuperCsvTemplate;
 
 import java.net.URL;
 import java.util.HashMap;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 26/03/14
- */
 public class SuperCsvStaticTemplateLoaderTest {
-
     private static final String TEMPLATE_NAME = "templateName";
     private static final String RESOURCE = "/templates/pojo.csv.properties";
     private static final int COLUMN_NUMBER = 10;
@@ -26,7 +22,7 @@ public class SuperCsvStaticTemplateLoaderTest {
     @Test
     public void load_template() {
         SuperCsvStaticTemplateLoader underTest = new SuperCsvStaticTemplateLoader();
-        HashMap<String, URL> templateURLs = new HashMap<String, URL>();
+        HashMap<String, URL> templateURLs = new HashMap<>();
         templateURLs.put(TEMPLATE_NAME, SuperCsvStaticTemplateLoaderTest.class.getResource(RESOURCE));
         underTest.setTemplateURLs(templateURLs);
         SuperCsvTemplate template = underTest.load(TEMPLATE_NAME);
@@ -44,7 +40,7 @@ public class SuperCsvStaticTemplateLoaderTest {
     @Test
     public void load_unkown_template() throws Exception {
         SuperCsvStaticTemplateLoader underTest = new SuperCsvStaticTemplateLoader();
-        underTest.setTemplateURLs(new HashMap<String, URL>());
+        underTest.setTemplateURLs(new HashMap<>());
         SuperCsvTemplate templateNull = underTest.load(TEMPLATE_NAME);
         Assertions.assertThat(templateNull).isNull();
     }

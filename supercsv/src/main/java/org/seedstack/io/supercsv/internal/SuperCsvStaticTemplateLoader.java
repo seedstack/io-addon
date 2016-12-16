@@ -5,13 +5,23 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.supercsv;
+package org.seedstack.io.supercsv.internal;
 
-import org.seedstack.io.RendererErrorCode;
-import org.seedstack.io.spi.AbstractBaseStaticTemplateLoader;
 import org.apache.commons.lang.StringUtils;
+import org.seedstack.io.spi.AbstractBaseStaticTemplateLoader;
+import org.seedstack.io.supercsv.Column;
+import org.seedstack.io.supercsv.SuperCsvTemplate;
 import org.seedstack.seed.SeedException;
-import org.supercsv.cellprocessor.*;
+import org.supercsv.cellprocessor.FmtBool;
+import org.supercsv.cellprocessor.FmtDate;
+import org.supercsv.cellprocessor.FmtNumber;
+import org.supercsv.cellprocessor.Optional;
+import org.supercsv.cellprocessor.ParseBigDecimal;
+import org.supercsv.cellprocessor.ParseBool;
+import org.supercsv.cellprocessor.ParseDate;
+import org.supercsv.cellprocessor.ParseDouble;
+import org.supercsv.cellprocessor.ParseInt;
+import org.supercsv.cellprocessor.ParseLong;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.constraint.UniqueHashCode;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -19,13 +29,7 @@ import org.supercsv.cellprocessor.ift.CellProcessor;
 import java.net.URL;
 import java.util.Properties;
 
-/**
- * Loads csv properties from META-INF/templates.
- *
- * @author pierre.thirouin@ext.mpsa.com
- */
-public class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<SuperCsvTemplate> {
-
+class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<SuperCsvTemplate> {
     private static final String NULLABLE = ".nullable";
     private static final String UNIQUE = ".unique";
     private static final String TRUE = "true";
@@ -50,6 +54,8 @@ public class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoad
     private static final String SUPER_CSV = "SuperCSV";
     private static final String NAME = ".name";
     private static final String COLUMNS = "columns";
+    private static final String TEMPLATE = "template";
+    private static final String URL = "url";
 
     @Override
     public String templatePathRegex() {
@@ -65,7 +71,9 @@ public class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoad
             try {
                 properties.load(url.openStream());
             } catch (Exception e) {
-                throw SeedException.wrap(e, RendererErrorCode.LOAD_TEMPLATE_EXCEPTION);
+                throw SeedException.wrap(e, SuperCsvErrorCode.ERROR_LOADING_SUPER_CSV_TEMPLATE)
+                        .put(URL, url.toExternalForm())
+                        .put(TEMPLATE, name);
             }
             SuperCsvTemplate superCsvTemplate = new SuperCsvTemplate(url.getFile());
             checkGeneralConfig(superCsvTemplate, properties);
@@ -102,7 +110,7 @@ public class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoad
      * @param template   template to initialize
      * @param properties used to initialize the template
      */
-    public void checkGeneralConfig(SuperCsvTemplate template, Properties properties) {
+    private void checkGeneralConfig(SuperCsvTemplate template, Properties properties) {
         String charsetName = properties.getProperty(CHARSET_NAME);
         String quote = properties.getProperty(QUOTE);
         String separator = properties.getProperty(SEPARATOR);
@@ -150,15 +158,13 @@ public class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoad
         if (StringUtils.isBlank(nullable) || StringUtils.equalsIgnoreCase(nullable, TRUE)) {
             if (cellProcessor != null) {
                 result = new Optional(cellProcessor);
-            }
-            else {
+            } else {
                 result = new Optional();
             }
         } else {
             if (cellProcessor != null) {
                 result = new NotNull(cellProcessor);
-            }
-            else {
+            } else {
                 result = new NotNull();
             }
         }
@@ -176,8 +182,7 @@ public class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoad
         if (StringUtils.equals(unique, TRUE)) {
             if (cellProcessor != null) {
                 result = new UniqueHashCode(cellProcessor);
-            }
-            else {
+            } else {
                 result = new UniqueHashCode();
             }
         }
@@ -249,5 +254,4 @@ public class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoad
 
         return result;
     }
-
 }

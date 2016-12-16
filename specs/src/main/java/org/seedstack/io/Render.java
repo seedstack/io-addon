@@ -13,16 +13,13 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Render annotation marks fields which will be automatically valued with the renderer corresponding to the value of the annotation.
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * 
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Render {
 
-	/**
-	 * @return renderer key
-	 */
-	String value();
+    /**
+     * @return renderer key
+     */
+    String value();
 }

@@ -9,19 +9,16 @@ package org.seedstack.io.spi;
 
 /**
  * Class to be extended to create a new template.
- *
- * @author pierre.thirouin@ext.mpsa.com
- *
  */
 public abstract class AbstractBaseTemplate implements Template {
 
-	/**
-	 * @return the name
-	 */
-	public abstract String getName();
+    /**
+     * @return the name
+     */
+    public abstract String getName();
 
-	/**
-	 * @return the description
-	 */
-	public abstract String getDescription();
+    /**
+     * @return the description
+     */
+    public abstract String getDescription();
 }

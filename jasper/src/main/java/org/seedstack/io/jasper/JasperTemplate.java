@@ -14,20 +14,20 @@ import org.seedstack.io.spi.AbstractBaseTemplate;
 import java.util.Map;
 
 /**
- * @author pierre.thirouin@ext.mpsa.com
+ * This class represents a Jasper template.
  */
 public class JasperTemplate extends AbstractBaseTemplate {
-
+    private final String name;
     private JasperDesign jasperDesign;
-
     private Map<JRExporterParameter, Object> jrExporterParameters;
-
-    private String name;
 
     /**
      * Constructor.
+     *
+     * @param name the template name.
      */
-    public JasperTemplate() {
+    public JasperTemplate(String name) {
+        this.name = name;
     }
 
     /**
@@ -79,5 +79,4 @@ public class JasperTemplate extends AbstractBaseTemplate {
     public void setJrExporterParameters(Map<JRExporterParameter, Object> jrExporterParameters) {
         this.jrExporterParameters = jrExporterParameters;
     }
-
 }

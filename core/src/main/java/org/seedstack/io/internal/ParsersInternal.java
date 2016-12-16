@@ -10,34 +10,24 @@ package org.seedstack.io.internal;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
+import org.apache.commons.lang.StringUtils;
 import org.seedstack.io.Parser;
 import org.seedstack.io.Parsers;
-import org.seedstack.io.RendererErrorCode;
 import org.seedstack.io.spi.AbstractTemplateParser;
 import org.seedstack.io.spi.Template;
 import org.seedstack.io.spi.TemplateLoader;
-import org.apache.commons.lang.StringUtils;
 import org.seedstack.seed.SeedException;
 
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
- */
 class ParsersInternal implements Parsers {
-
-    private List<TemplateLoader<?>> templateLoaders;
-
-    private Map<String, Class<Parser>> parsers;
-
+    private static final String TEMPLATE = "template";
+    private final List<TemplateLoader<?>> templateLoaders;
+    private final Map<String, Class<Parser>> parsers;
     @Inject
-    Injector injector;
-
-    ParsersInternal() {
-    }
+    private Injector injector;
 
     ParsersInternal(List<TemplateLoader<?>> templateLoaders, Map<String, Class<Parser>> parsers) {
         this.templateLoaders = templateLoaders;
@@ -59,7 +49,8 @@ class ParsersInternal implements Parsers {
         // For parsers with template
         if (templateLoader != null) {
             if (StringUtils.isBlank(templateLoader.templateParser())) {
-                throw SeedException.createNew(RendererErrorCode.NO_PARSER_FOUND);
+                throw SeedException.createNew(IoErrorCode.NO_PARSER_FOUND)
+                        .put(TEMPLATE, templateName);
             }
 
             Parser parser = injector.getInstance(Key.get(Parser.class, Names.named(templateLoader.templateParser())));
@@ -73,17 +64,17 @@ class ParsersInternal implements Parsers {
 
                     // Catch all possible fails when fail to load a template
                 } catch (Exception e) {
-                    throw SeedException.wrap(e, RendererErrorCode.LOAD_TEMPLATE_EXCEPTION);
+                    throw SeedException.wrap(e, IoErrorCode.ERROR_LOADING_TEMPLATE)
+                            .put(TEMPLATE, templateName);
                 }
             }
             return parser;
         } else {
             try {
                 return injector.getInstance(Key.get(Parser.class, Names.named(templateName)));
-
             } catch (Exception e) {
-                throw SeedException.wrap(e, RendererErrorCode.NO_TEMPLATE_FOUND_EXCEPTION)
-                        .put("templateName", templateName);
+                throw SeedException.wrap(e, IoErrorCode.NO_TEMPLATE_FOUND_EXCEPTION)
+                        .put(TEMPLATE, templateName);
             }
         }
     }

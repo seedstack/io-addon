@@ -12,9 +12,6 @@ import org.seedstack.io.Renderer;
 /**
  * This class should be extended when you want to add a <tt>Renderer</tt> without template. <br>
  * It implements the {@link Renderer} interface
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * 
  */
 public abstract class AbstractBaseRenderer implements Renderer {
 

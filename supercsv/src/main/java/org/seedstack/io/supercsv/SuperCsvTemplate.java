@@ -24,30 +24,19 @@ import java.util.List;
 /**
  * CSV Template based on SuperCSV.
  *
- * @author pierre.thirouin@ext.mpsa.com
  * @see <a href="http://supercsv.sourceforge.net/">supercsv</a>
  */
 public class SuperCsvTemplate extends AbstractBaseTemplate {
-
-    private List<Column> columns = new ArrayList<Column>();
-
+    private final String name;
+    private List<Column> columns = new ArrayList<>();
     private char quote = '"';
-
     private char separator = ';';
-
     private String endOfLine = "\n";
-
     private QuoteMode quoteMode = new NormalQuoteMode();
-
     private CsvEncoder encoder = new DefaultCsvEncoder();
-
     private CommentMatcher commentMatcher;
-
     private String charsetName = "UTF-8";
-
     private boolean showHeader;
-
-    private String name;
 
     /**
      * Constructor.
@@ -153,7 +142,7 @@ public class SuperCsvTemplate extends AbstractBaseTemplate {
      * @return list of headers
      */
     public List<String> getHeaders() {
-        List<String> headers = new ArrayList<String>();
+        List<String> headers = new ArrayList<>();
         for (Column column : columns) {
             headers.add(column.getName());
         }
@@ -164,7 +153,7 @@ public class SuperCsvTemplate extends AbstractBaseTemplate {
      * @return list of model fields to render
      */
     public List<String> getFields() {
-        List<String> fields = new ArrayList<String>();
+        List<String> fields = new ArrayList<>();
         for (Column column : columns) {
             fields.add(column.getField());
         }
@@ -175,7 +164,7 @@ public class SuperCsvTemplate extends AbstractBaseTemplate {
      * @return list of column writing configuration
      */
     public List<CellProcessor> getWritingCellProcessors() {
-        List<CellProcessor> cellProcessors = new ArrayList<CellProcessor>();
+        List<CellProcessor> cellProcessors = new ArrayList<>();
         for (Column column : columns) {
             cellProcessors.add(column.getWritingCellProcessor());
         }
@@ -186,7 +175,7 @@ public class SuperCsvTemplate extends AbstractBaseTemplate {
      * @return list of column reading configuration
      */
     public List<CellProcessor> getReadingCellProcessors() {
-        List<CellProcessor> cellProcessors = new ArrayList<CellProcessor>();
+        List<CellProcessor> cellProcessors = new ArrayList<>();
         for (Column column : columns) {
             cellProcessors.add(column.getReadingCellProcessor());
         }

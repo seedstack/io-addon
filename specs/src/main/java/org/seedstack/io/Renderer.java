@@ -11,35 +11,26 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * This class allow you to render a model in a specific format.
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * 
+ * Provides the ability to render a model in a specific format.
  */
 public interface Renderer {
 
-	/**
-	 * Renders a model in a specific format.
-	 * 
-	 * @param outputStream
-	 *            An outputstream
-	 * @param model
-	 *            the model to be rendered
-	 */
-	void render(OutputStream outputStream, Object model);
+    /**
+     * Renders a model in a specific format.
+     *
+     * @param outputStream An outputstream
+     * @param model        the model to be rendered
+     */
+    void render(OutputStream outputStream, Object model);
 
-	/**
-	 * Renders a model in a specific format.
-	 * 
-	 * @param outputStream
-	 *            An outputstream
-	 * @param model
-	 *            the model to be rendered
-	 * @param mimeType
-	 *            MIME type
-	 * @param parameters
-	 *            optional parameters
-	 */
-	void render(OutputStream outputStream, Object model, String mimeType, Map<String, Object> parameters);
+    /**
+     * Renders a model in a specific format.
+     *
+     * @param outputStream An outputstream
+     * @param model        the model to be rendered
+     * @param mimeType     MIME type
+     * @param parameters   optional parameters
+     */
+    void render(OutputStream outputStream, Object model, String mimeType, Map<String, Object> parameters);
 
 }

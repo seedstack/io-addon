@@ -20,29 +20,43 @@ import org.seedstack.io.Parser;
 import org.seedstack.io.Renderer;
 import org.seedstack.io.spi.StaticTemplateLoader;
 import org.seedstack.io.spi.TemplateLoader;
-import org.seedstack.seed.core.utils.SeedSpecifications;
+import org.seedstack.seed.core.internal.utils.SpecificationBuilder;
+import org.seedstack.shed.reflect.ClassPredicates;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author pierre.thirouin@ext.mpsa.com
+ * This plugin is responsible for detecting templates, renderers and parsers.
  */
 public class IOPlugin extends AbstractPlugin {
-
+    private static final Specification<Class<?>> templateLoaderSpec = new SpecificationBuilder<>(ClassPredicates.classIsDescendantOf(TemplateLoader.class)
+            .and(ClassPredicates.classIsInterface().negate())
+            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate())
+    ).build();
+    private static final Specification<Class<?>> rendererSpec = new SpecificationBuilder<>(ClassPredicates.classIsDescendantOf(Renderer.class)
+            .and(ClassPredicates.classIsInterface().negate())
+            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate())
+    ).build();
+    private static final Specification<Class<?>> parserSpec = new SpecificationBuilder<>(ClassPredicates.classIsDescendantOf(Parser.class)
+            .and(ClassPredicates.classIsInterface().negate())
+            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate())
+    ).build();
     private static final String META_INF_TEMPLATES = "META-INF/templates/";
-
-    private List<StaticTemplateLoader<?>> templateLoaderRegexs = new ArrayList<StaticTemplateLoader<?>>();
-    private List<TemplateLoader<?>> templateLoaders = new ArrayList<TemplateLoader<?>>();
-    private Specification<Class<?>> templateLoaderSpec;
-    private Specification<Class<?>> rendererSpec;
-    private Specification<Class<?>> parserSpec;
-    private Map<String, Class<Renderer>> renderers = new HashMap<String, Class<Renderer>>();
-    private Map<String, Class<Parser>> parsers = new HashMap<String, Class<Parser>>();
+    private final List<StaticTemplateLoader<?>> templateLoaderRegexs = new ArrayList<>();
+    private final List<TemplateLoader<?>> templateLoaders = new ArrayList<>();
+    private final Map<String, Class<Renderer>> renderers = new HashMap<>();
+    private final Map<String, Class<Parser>> parsers = new HashMap<>();
 
     @Inject
     private Injector injector;
@@ -62,11 +76,11 @@ public class IOPlugin extends AbstractPlugin {
     public Collection<ClasspathScanRequest> classpathScanRequests() {
         // Scan templateLoaders
         if (round.isFirst()) {
-            templateLoaderSpec = and(descendantOf(TemplateLoader.class), not(SeedSpecifications.classIsInterface()), not(SeedSpecifications.classIsAbstract()));
-            rendererSpec = and(descendantOf(Renderer.class), not(SeedSpecifications.classIsInterface()), not(SeedSpecifications.classIsAbstract()));
-            parserSpec = and(descendantOf(Parser.class), not(SeedSpecifications.classIsInterface()), not(SeedSpecifications.classIsAbstract()));
-
-            return classpathScanRequestBuilder().specification(templateLoaderSpec).specification(rendererSpec).specification(parserSpec).build();
+            return classpathScanRequestBuilder()
+                    .specification(templateLoaderSpec)
+                    .specification(rendererSpec)
+                    .specification(parserSpec)
+                    .build();
         } else {
             // for each templateLoader with regex, parse "META-INF/templates/" directory to find corresponding templates
             ClasspathScanRequestBuilder classpathScanRequestBuilder = classpathScanRequestBuilder();
@@ -94,7 +108,9 @@ public class IOPlugin extends AbstractPlugin {
                             Class<StaticTemplateLoader<?>> staticTemplateLoaderClass = (Class<StaticTemplateLoader<?>>) templateLoaderClass;
                             StaticTemplateLoader<?> staticTemplateLoader;
                             try {
-                                staticTemplateLoader = staticTemplateLoaderClass.newInstance();
+                                Constructor<StaticTemplateLoader<?>> declaredConstructor = staticTemplateLoaderClass.getDeclaredConstructor();
+                                declaredConstructor.setAccessible(true);
+                                staticTemplateLoader = declaredConstructor.newInstance();
                             } catch (Exception e) {
                                 throw new RuntimeException("Unable to instantiate StaticTemplateLoader " + staticTemplateLoaderClass.getCanonicalName(), e);
                             }
@@ -140,7 +156,7 @@ public class IOPlugin extends AbstractPlugin {
 
 
             for (StaticTemplateLoader<?> staticTemplateLoader : templateLoaderRegexs) {
-                Map<String, URL> templateURLs = new HashMap<String, URL>();
+                Map<String, URL> templateURLs = new HashMap<>();
 
                 Collection<String> templateUrls = mapResourcesByRegex.get(staticTemplateLoader.templatePathRegex());
                 for (String templateUrl : templateUrls) {

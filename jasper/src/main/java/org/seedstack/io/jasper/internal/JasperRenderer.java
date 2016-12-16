@@ -28,8 +28,6 @@ import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRPptxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import org.seedstack.io.Renderer;
-import org.seedstack.io.RendererErrorCode;
 import org.seedstack.io.jasper.JasperTemplate;
 import org.seedstack.io.spi.AbstractTemplateRenderer;
 import org.seedstack.seed.SeedException;
@@ -40,21 +38,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
-/**
- * This class is initialized with a JasperDesign file and provide PDF and XLS.
- *
- * @author pierre.thirouin@ext.mpsa.com
- */
 @Named("JasperRenderer")
 class JasperRenderer extends AbstractTemplateRenderer<JasperTemplate> {
-
+    private static final String TEMPLATE = "template";
     private JasperReport jasperReport;
 
-    /**
-     * This implementation doesn't use the parameters attribute.
-     *
-     * @see Renderer#render(java.io.OutputStream, java.lang.Object, java.lang.String, java.util.Map)
-     */
     @Override
     public void render(OutputStream outputStream, Object object, String mimeType, Map<String, Object> parameters) {
         try {
@@ -68,17 +56,17 @@ class JasperRenderer extends AbstractTemplateRenderer<JasperTemplate> {
 
                     // Show an appropriate exception when jasper template language is set to Groovy
                     if ("org/codehaus/groovy/control/CompilationFailedException".equals(error.getMessage())) {
-                        throw SeedException.wrap(error, RendererErrorCode.COMPILE_JASPER_REPORT_EXCEPTION)
-                                .put("templateName", template.getName());
+                        throw SeedException.wrap(error, JasperErrorCode.ERROR_DURING_JASPER_REPORT_COMPILATION)
+                                .put(TEMPLATE, template.getName());
                     } else {
-                        throw SeedException.wrap(error, RendererErrorCode.COMPILE_JASPER_REPORT_EXCEPTION)
-                                .put("templateName", template.getName());
+                        throw SeedException.wrap(error, JasperErrorCode.ERROR_DURING_JASPER_REPORT_COMPILATION)
+                                .put(TEMPLATE, template.getName());
                     }
 
                     // Catch all possible fails when compiling a jasper report
                 } catch (Exception e) {
-                    throw SeedException.wrap(e, RendererErrorCode.COMPILE_JASPER_REPORT_EXCEPTION)
-                            .put("templateName", template.getName());
+                    throw SeedException.wrap(e, JasperErrorCode.ERROR_DURING_JASPER_REPORT_COMPILATION)
+                            .put(TEMPLATE, template.getName());
                 }
             }
 
@@ -101,7 +89,7 @@ class JasperRenderer extends AbstractTemplateRenderer<JasperTemplate> {
             // Catch all possible fails when render a jasper report
             //
         } catch (Exception e) {
-            throw SeedException.wrap(e, RendererErrorCode.JASPER_EXCEPTION);
+            throw SeedException.wrap(e, JasperErrorCode.ERROR_DURING_JASPER_REPORT_RENDERING);
         }
     }
 
@@ -200,5 +188,4 @@ class JasperRenderer extends AbstractTemplateRenderer<JasperTemplate> {
             throw new RuntimeException(e);
         }
     }
-
 }

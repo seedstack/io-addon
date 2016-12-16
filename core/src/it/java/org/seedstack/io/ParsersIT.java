@@ -8,20 +8,16 @@
 package org.seedstack.io;
 
 import com.google.inject.Inject;
-import org.seedstack.io.fixture.BeanDTO;
-import org.seedstack.io.fixture.CustomParser;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.seedstack.io.fixture.BeanDTO;
+import org.seedstack.io.fixture.CustomParser;
 import org.seedstack.seed.it.SeedITRunner;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
- */
 @RunWith(SeedITRunner.class)
 public class ParsersIT {
 

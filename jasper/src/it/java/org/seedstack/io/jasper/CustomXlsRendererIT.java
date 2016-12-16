@@ -18,27 +18,18 @@ import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *
- */
 @RunWith(SeedITRunner.class)
 public class CustomXlsRendererIT {
-	
-	@Render("myCustomXlsRenderer")
-	Renderer renderer;
-	
-	final CustomerBean john = new CustomerBean("1", "John", "Dunbar",
-			new GregorianCalendar(1945, Calendar.JUNE, 13).getTime(),
-			"1600 Amphitheatre Parkway\nMountain View, CA 94043\nUnited States", true, 0,
-			"\"May the Force be with you.\" - Star Wars", "jdunbar@gmail.com", 0L);
-	
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void test() throws Exception {
-		renderer.render(new ByteArrayOutputStream(), john);
-	}
+    @Render("myCustomXlsRenderer")
+    private Renderer renderer;
+    private final CustomerBean john = new CustomerBean("1", "John", "Dunbar",
+            new GregorianCalendar(1945, Calendar.JUNE, 13).getTime(),
+            "1600 Amphitheatre Parkway\nMountain View, CA 94043\nUnited States", true, 0,
+            "\"May the Force be with you.\" - Star Wars", "jdunbar@gmail.com", 0L);
+
+    @Test
+    public void test() throws Exception {
+        renderer.render(new ByteArrayOutputStream(), john);
+    }
 
 }

@@ -12,24 +12,20 @@ import org.seedstack.io.Renderer;
 /**
  * This class should be extended when you want to add a <tt>Renderer</tt> with template. <br>
  * It implements the {@link Renderer} interface
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * 
- * @param <T>
- *            template
+ *
+ * @param <T> template
  */
 public abstract class AbstractTemplateRenderer<T> implements Renderer {
 
-	/**
-	 * Renderer template
-	 */
-	protected T template;
+    /**
+     * Renderer template
+     */
+    protected T template;
 
-	/**
-	 * @param template
-	 *            template to set
-	 */
-	public void setTemplate(T template) {
-		this.template = template;
-	}
+    /**
+     * @param template template to set
+     */
+    public void setTemplate(T template) {
+        this.template = template;
+    }
 }

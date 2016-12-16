@@ -14,8 +14,6 @@ import java.util.List;
  * Parser provide a method to parse object from an InputStream.
  *
  * @param <PARSED_OBJECT> parsed object
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 24/03/14
  */
 public interface Parser<PARSED_OBJECT> {
 

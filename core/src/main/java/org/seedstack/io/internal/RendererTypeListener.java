@@ -7,8 +7,6 @@
  */
 package org.seedstack.io.internal;
 
-import java.lang.reflect.Field;
-
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -16,31 +14,21 @@ import org.seedstack.io.Render;
 import org.seedstack.io.Renderer;
 import org.seedstack.io.Renderers;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- * 
- */
+import java.lang.reflect.Field;
+
 class RendererTypeListener implements TypeListener {
+    private final Renderers renderers;
 
-	private final Renderers renderers;
+    RendererTypeListener(Renderers renderers) {
+        this.renderers = renderers;
+    }
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param renderers
-	 *            object which get all the renderers
-	 */
-	RendererTypeListener(Renderers renderers) {
-		this.renderers = renderers;
-	}
-
-	@Override
-	public <T> void hear(TypeLiteral<T> type, TypeEncounter<T> encounter) {
-		for (Field field : type.getRawType().getDeclaredFields()) {
-			if (field.getType() == Renderer.class && field.isAnnotationPresent(Render.class)) {
-				encounter.register(new RendererMemberInjector<T>(field, renderers));
-			}
-		}
-	}
-
+    @Override
+    public <T> void hear(TypeLiteral<T> type, TypeEncounter<T> encounter) {
+        for (Field field : type.getRawType().getDeclaredFields()) {
+            if (field.getType() == Renderer.class && field.isAnnotationPresent(Render.class)) {
+                encounter.register(new RendererMemberInjector<>(field, renderers));
+            }
+        }
+    }
 }

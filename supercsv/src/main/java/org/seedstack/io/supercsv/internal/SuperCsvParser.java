@@ -5,10 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.io.supercsv;
+package org.seedstack.io.supercsv.internal;
 
-import org.seedstack.io.RendererErrorCode;
 import org.seedstack.io.spi.AbstractTemplateParser;
+import org.seedstack.io.supercsv.SuperCsvTemplate;
 import org.seedstack.seed.SeedException;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanReader;
@@ -22,27 +22,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Parser for SuperCSV.
- *
- * @param <T> parsed object
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
- */
-@Named("SuperCSV")
-public class SuperCsvParser<T> extends AbstractTemplateParser<SuperCsvTemplate, T> {
+import static com.google.common.base.Preconditions.checkNotNull;
 
-    private static final String PARAM = "param";
-    private static final String TEMPLATE_NAME = "templateName";
+@Named("SuperCSV")
+class SuperCsvParser<T> extends AbstractTemplateParser<SuperCsvTemplate, T> {
+    private static final String TEMPLATE = "template";
 
     @Override
     public List<T> parse(InputStream inputStream, Class<T> clazz) {
-        ICsvBeanReader beanReader = null;
-        List<T> beans = new ArrayList<T>();
+        checkNotNull(inputStream, "inputStream must not be null");
+        checkNotNull(clazz, "clazz must not be null");
 
-        // Checks params nullity
-        SeedException.createNew(RendererErrorCode.INCORRECT_PARAM).put(PARAM, "inputStream").throwsIfNull(inputStream);
-        SeedException.createNew(RendererErrorCode.INCORRECT_PARAM).put(PARAM, "clazz").throwsIfNull(clazz);
+        ICsvBeanReader beanReader = null;
+        List<T> beans = new ArrayList<>();
 
         try {
             beanReader = new CsvBeanReader(new InputStreamReader(inputStream, template.getCharsetName()), template.getPreferences());
@@ -62,7 +54,8 @@ public class SuperCsvParser<T> extends AbstractTemplateParser<SuperCsvTemplate, 
             }
 
         } catch (Exception e) {
-            throw SeedException.wrap(e, RendererErrorCode.SUPER_CSV_EXCEPTION).put(TEMPLATE_NAME, template.getName());
+            throw SeedException.wrap(e, SuperCsvErrorCode.ERROR_DURING_SUPER_CSV_PARSING)
+                    .put(TEMPLATE, template.getName());
         } finally {
             closeQuietly(beanReader);
         }
@@ -75,7 +68,7 @@ public class SuperCsvParser<T> extends AbstractTemplateParser<SuperCsvTemplate, 
                 closeable.close();
             }
         } catch (IOException e) {
-            throw SeedException.wrap(e, RendererErrorCode.SUPER_CSV_EXCEPTION).put(TEMPLATE_NAME, template.getName());
+            // ignore
         }
     }
 }

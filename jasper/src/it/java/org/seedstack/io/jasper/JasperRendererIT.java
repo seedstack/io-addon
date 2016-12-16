@@ -31,26 +31,15 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 
-/**
- * @author pierre.thirouin@ext.mpsa.com
- *
- */
 @RunWith(SeedITRunner.class)
 public class JasperRendererIT {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(JasperRendererIT.class);
-
     private List<CustomerBean> customers;
-    
-	/**
-	 * Temporary folder to stock the file.
-	 */
-	@Rule
-	public TemporaryFolder folder = new TemporaryFolder();
-	
-	@Render("report")
-	Renderer jasperRenderer;
-	
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+    @Render("report")
+    private Renderer jasperRenderer;
+
     /**
      * Initialize the test.
      */
@@ -65,123 +54,123 @@ public class JasperRendererIT {
     }
 
 
-	/**
-	 * Exports a customerBean in PDF.
-	 */
+    /**
+     * Exports a customerBean in PDF.
+     */
     @Test
     public void render_PDF() {
-		jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/pdf", null);
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/pdf", null);
     }
 
-	/**
-	 * Exports a customerBean in XML.
-	 */
+    /**
+     * Exports a customerBean in XML.
+     */
     @Test
     public void render_PDF_in_chinese() {
-    	try {
-    	File file = folder.newFile("pojo.pdf");
-		FileOutputStream fos = new FileOutputStream(file);
-		jasperRenderer.render(fos, customers, "application/pdf", null);
-		fos.close();
-    	} catch (Exception e) {
-    		Assertions.fail(e.getMessage(), e);
-    	}
-    }
-
-	/**
-	 * Exports a customerBean in RTF.
-	 */
-    @Test
-    public void render_RTF() {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/rtf", null);
-    }
-
-	/**
-	 * Exports a customerBean in XLS.
-	 */
-    @Test
-    public void render_XLS() {
-    	try {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/xls", null);
-    	} catch (Exception e) {
-    		LOGGER.error(e.getMessage(), e);
-    		fail();
-    	}
-    }
-
-	/**
-	 * Exports a customerBean in ODT.
-	 */
-    @Test
-    public void render_ODT() {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/odt", null);
-    }
-
-	/**
-	 * Exports a customerBean in ODS.
-	 */
-    @Test
-    public void render_ODS() {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/ods", null);
-    }
-
-	/**
-	 * Exports a customerBean in DOCX.
-	 */
-    @Test
-    public void render_DOCX() {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/docx", null);
-    }
-
-	/**
-	 * Exports a customerBean in XLSX.
-	 */
-    @Test
-    public void render_XLSX() {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/xlsx", null);
-    }
-
-	/**
-	 * Exports a customerBean in PPTX.
-	 */
-    @Test
-    public void render_PPTX() {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/pptx", null);
-    }
-
-	/**
-	 * Exports a customerBean in XHMTL.
-	 */
-    @Test
-    public void render_XHMTL() {
-    	jasperRenderer.render(new ByteArrayOutputStream(), customers, "text/xhmtl", null);
-    }
-
-	/**
-	 * Exports a customerBean in CSV.
-	 */
-    @Test
-    public void render_without_MIME_type() {
         try {
-        	jasperRenderer.render(new ByteArrayOutputStream(), customers);
-        	Assertions.failBecauseExceptionWasNotThrown(SeedException.class);
-        } catch(Exception e) {
-        	Assertions.assertThat(e).isNotNull();
-        	LOGGER.info(e.getMessage());
+            File file = folder.newFile("pojo.pdf");
+            FileOutputStream fos = new FileOutputStream(file);
+            jasperRenderer.render(fos, customers, "application/pdf", null);
+            fos.close();
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage(), e);
         }
     }
 
-	/**
-	 * Tests exception when render with an unsupported MIME type.
-	 */
+    /**
+     * Exports a customerBean in RTF.
+     */
+    @Test
+    public void render_RTF() {
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/rtf", null);
+    }
+
+    /**
+     * Exports a customerBean in XLS.
+     */
+    @Test
+    public void render_XLS() {
+        try {
+            jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/xls", null);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            fail();
+        }
+    }
+
+    /**
+     * Exports a customerBean in ODT.
+     */
+    @Test
+    public void render_ODT() {
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/odt", null);
+    }
+
+    /**
+     * Exports a customerBean in ODS.
+     */
+    @Test
+    public void render_ODS() {
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/ods", null);
+    }
+
+    /**
+     * Exports a customerBean in DOCX.
+     */
+    @Test
+    public void render_DOCX() {
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/docx", null);
+    }
+
+    /**
+     * Exports a customerBean in XLSX.
+     */
+    @Test
+    public void render_XLSX() {
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/xlsx", null);
+    }
+
+    /**
+     * Exports a customerBean in PPTX.
+     */
+    @Test
+    public void render_PPTX() {
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/pptx", null);
+    }
+
+    /**
+     * Exports a customerBean in XHMTL.
+     */
+    @Test
+    public void render_XHMTL() {
+        jasperRenderer.render(new ByteArrayOutputStream(), customers, "text/xhmtl", null);
+    }
+
+    /**
+     * Exports a customerBean in CSV.
+     */
+    @Test
+    public void render_without_MIME_type() {
+        try {
+            jasperRenderer.render(new ByteArrayOutputStream(), customers);
+            Assertions.failBecauseExceptionWasNotThrown(SeedException.class);
+        } catch (Exception e) {
+            Assertions.assertThat(e).isNotNull();
+            LOGGER.info(e.getMessage());
+        }
+    }
+
+    /**
+     * Tests exception when render with an unsupported MIME type.
+     */
     @Test
     public void render_with_fake_MIME_type() {
         try {
-        	jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/3D", null);
-        	Assertions.failBecauseExceptionWasNotThrown(SeedException.class);
-        } catch(Exception e) {
-        	Assertions.assertThat(e).isNotNull();
-        	LOGGER.info(e.getMessage());
+            jasperRenderer.render(new ByteArrayOutputStream(), customers, "application/3D", null);
+            Assertions.failBecauseExceptionWasNotThrown(SeedException.class);
+        } catch (Exception e) {
+            Assertions.assertThat(e).isNotNull();
+            LOGGER.info(e.getMessage());
         }
     }
 }

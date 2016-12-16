@@ -15,11 +15,8 @@ import java.util.List;
 /**
  * Class to extends in order to have.
  *
- * @param <TEMPLATE> template used to parse.
+ * @param <TEMPLATE>      template used to parse.
  * @param <PARSED_OBJECT> object parsed.
- *
- * @author pierre.thirouin@ext.mpsa.com
- *         Date: 25/03/14
  */
 public abstract class AbstractTemplateParser<TEMPLATE, PARSED_OBJECT> implements Parser<PARSED_OBJECT> {
 

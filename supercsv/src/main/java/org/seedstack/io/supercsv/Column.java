@@ -10,9 +10,7 @@ package org.seedstack.io.supercsv;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 
 /**
- * Define a CSV colomn. This class gets an field name, a name and a configuration.
- *
- * @author pierre.thirouin@ext.mpsa.com
+ * Define a CSV column.
  */
 public class Column {
 

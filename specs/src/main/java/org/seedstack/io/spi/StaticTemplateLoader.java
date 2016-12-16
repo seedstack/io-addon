@@ -13,22 +13,19 @@ import java.util.Map;
 /**
  * StaticTemplateLoader loads static templates from META-INF directory at the plugin startup. Static templates to load are defined
  * by a regex specified with <tt>templatePathRegex</tt>.
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * @param <T>
- *            template
- * 
+ *
+ * @param <T> template
  */
 public interface StaticTemplateLoader<T extends Template> extends TemplateLoader<T> {
 
-	/**
-	 * @return template regex
-	 */
-	String templatePathRegex();
+    /**
+     * @return template regex
+     */
+    String templatePathRegex();
 
-	/**
-	 * @param templateURLs
-	 */
-	void setTemplateURLs(Map<String, URL> templateURLs);
+    /**
+     * @param templateURLs
+     */
+    void setTemplateURLs(Map<String, URL> templateURLs);
 
 }

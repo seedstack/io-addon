@@ -14,37 +14,29 @@ import java.util.Set;
 /**
  * This class should be extended to add a loader of static templates. Static templates are load from the META-INF/templates
  * directory.
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * @param <T>
- *            template
+ *
+ * @param <T> template
  */
 public abstract class AbstractBaseStaticTemplateLoader<T extends Template> implements StaticTemplateLoader<T> {
+    protected Map<String, URL> templateURLs;
 
-	protected Map<String, URL> templateURLs;
+    /**
+     * Constructor.
+     */
+    public AbstractBaseStaticTemplateLoader() {
+    }
 
-	/**
-	 * Constructor.
-	 */
-	public AbstractBaseStaticTemplateLoader() {
-	}
+    @Override
+    public Set<String> names() {
+        return templateURLs.keySet();
+    }
 
-	@Override
-	public Set<String> names() {
-		return templateURLs.keySet();
-	}
+    @Override
+    public boolean contains(String name) {
+        return templateURLs.containsKey(name);
+    }
 
-	@Override
-	public boolean contains(String name) {
-		return templateURLs.containsKey(name);
-	}
-
-	/**
-	 * @param templateURLs
-	 *            the templateURLs to set
-	 */
-	public void setTemplateURLs(Map<String, URL> templateURLs) {
-		this.templateURLs = templateURLs;
-	}
-
+    public void setTemplateURLs(Map<String, URL> templateURLs) {
+        this.templateURLs = templateURLs;
+    }
 }

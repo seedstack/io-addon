@@ -10,19 +10,14 @@ package org.seedstack.io;
 /**
  * This class aggregates all the renderers associated to a key. In case of template renderers the key is defined by the template,
  * otherwise the key is defined by the <tt>Named</tt> annotation of the renderer.
- * 
- * @author pierre.thirouin@ext.mpsa.com
- * 
  */
 public interface Renderers {
 
-	/**
-	 * Returns a renderer corresponding to a specific key.
-	 * 
-	 * @param key
-	 *            The key associated to the renderer
-	 * @return Renderer
-	 */
-	Renderer getRendererFor(String key);
-
+    /**
+     * Returns a renderer corresponding to a specific key.
+     *
+     * @param key The key associated to the renderer
+     * @return Renderer
+     */
+    Renderer getRendererFor(String key);
 }

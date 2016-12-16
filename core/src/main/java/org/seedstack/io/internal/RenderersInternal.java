@@ -10,45 +10,25 @@ package org.seedstack.io.internal;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
+import org.apache.commons.lang.StringUtils;
 import org.seedstack.io.Renderer;
-import org.seedstack.io.RendererErrorCode;
 import org.seedstack.io.Renderers;
 import org.seedstack.io.spi.AbstractTemplateRenderer;
 import org.seedstack.io.spi.Template;
 import org.seedstack.io.spi.TemplateLoader;
-import org.apache.commons.lang.StringUtils;
 import org.seedstack.seed.SeedException;
 
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 
-/**
- * This class implements Renderers.
- *
- * @author pierre.thirouin@ext.mpsa.com
- */
 class RenderersInternal implements Renderers {
-
-    private List<TemplateLoader<?>> templateLoaders;
-
-    private Map<String, Class<Renderer>> renderers;
-
+    private static final String TEMPLATE = "template";
+    private final List<TemplateLoader<?>> templateLoaders;
+    private final Map<String, Class<Renderer>> renderers;
     @Inject
-    Injector injector;
+    private Injector injector;
 
-    /**
-     * Constructor.
-     */
-    RenderersInternal() {
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param templateLoaders the template loaders
-     * @param renderers       the renderer classes
-     */
     RenderersInternal(List<TemplateLoader<?>> templateLoaders, Map<String, Class<Renderer>> renderers) {
         this.templateLoaders = templateLoaders;
         this.renderers = renderers;
@@ -68,7 +48,8 @@ class RenderersInternal implements Renderers {
         // For renderers with template
         if (templateLoader != null) {
             if (StringUtils.isBlank(templateLoader.templateRenderer())) {
-                throw SeedException.createNew(RendererErrorCode.NO_RENDERER_FOUND);
+                throw SeedException.createNew(IoErrorCode.NO_RENDERER_FOUND)
+                        .put(TEMPLATE, templateName);
             }
 
             Renderer renderer = injector.getInstance(Key.get(Renderer.class, Names.named(templateLoader.templateRenderer())));
@@ -83,17 +64,17 @@ class RenderersInternal implements Renderers {
                     // Catch all possible fails when fail to load a template
                     //
                 } catch (Exception e) {
-                    throw SeedException.wrap(e, RendererErrorCode.LOAD_TEMPLATE_EXCEPTION);
+                    throw SeedException.wrap(e, IoErrorCode.ERROR_LOADING_TEMPLATE)
+                            .put(TEMPLATE, templateName);
                 }
             }
             return renderer;
         } else {
             try {
                 return injector.getInstance(Key.get(Renderer.class, Names.named(templateName)));
-
             } catch (Exception e) {
-                throw SeedException.wrap(e, RendererErrorCode.NO_TEMPLATE_FOUND_EXCEPTION)
-                        .put("templateName", templateName);
+                throw SeedException.wrap(e, IoErrorCode.NO_TEMPLATE_FOUND_EXCEPTION)
+                        .put(TEMPLATE, templateName);
             }
         }
     }

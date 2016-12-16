@@ -13,13 +13,13 @@ import io.nuun.kernel.api.plugin.context.Context;
 import io.nuun.kernel.api.plugin.context.InitContext;
 import io.nuun.kernel.api.plugin.request.ClasspathScanRequest;
 import io.nuun.kernel.api.plugin.request.ClasspathScanRequestBuilder;
-import io.nuun.kernel.core.AbstractPlugin;
 import org.apache.commons.lang.StringUtils;
 import org.kametic.specifications.Specification;
 import org.seedstack.io.Parser;
 import org.seedstack.io.Renderer;
 import org.seedstack.io.spi.StaticTemplateLoader;
 import org.seedstack.io.spi.TemplateLoader;
+import org.seedstack.seed.core.internal.AbstractSeedPlugin;
 import org.seedstack.seed.core.internal.utils.SpecificationBuilder;
 import org.seedstack.shed.reflect.ClassPredicates;
 
@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
 /**
  * This plugin is responsible for detecting templates, renderers and parsers.
  */
-public class IOPlugin extends AbstractPlugin {
+public class IOPlugin extends AbstractSeedPlugin {
     private static final Specification<Class<?>> templateLoaderSpec = new SpecificationBuilder<>(ClassPredicates.classIsDescendantOf(TemplateLoader.class)
             .and(ClassPredicates.classIsInterface().negate())
             .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate())
@@ -93,7 +93,7 @@ public class IOPlugin extends AbstractPlugin {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public InitState init(InitContext initContext) {
+    public InitState initialize(InitContext initContext) {
         if (round.isFirst()) {
             Map<Specification, Collection<Class<?>>> scannedClassesByAnnotationClass = initContext.scannedTypesBySpecification();
 

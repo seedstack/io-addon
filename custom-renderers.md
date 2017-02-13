@@ -1,6 +1,6 @@
 ---
 title: "Custom renderers"
-name: "Document import/export"
+parent: "Document import/export"
 zones:
     - Addons
 tags:
@@ -8,6 +8,7 @@ tags:
     - "export"
     - "template"
     - "document"
+weight: -1    
 menu:
     IOAddon:
         weight: 20

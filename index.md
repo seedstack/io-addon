@@ -1,12 +1,8 @@
 ---
-title: "Basics"
-name: "Document import/export"
+title: "Document import/export"
 repo: "https://github.com/seedstack/io-addon"
-date: 2015-11-17
 author: Pierre THIROUIN
 description: "Provides a simple way to import and export data in multiple formats: CSV, PDF, Office documents, ..."
-backend: true
-weight: -1
 tags:
     - "document"
     - "export"

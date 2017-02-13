@@ -1,11 +1,12 @@
 ---
 title: "Advanced CSV"
-name: "Document import/export"
+parent: "Document import/export"
 zones:
     - Addons
 tags:
     - "export"
     - "csv"
+weight: -1    
 menu:
     IOAddon:
         weight: 40

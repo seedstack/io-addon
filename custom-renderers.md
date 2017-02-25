@@ -32,33 +32,33 @@ In this case, templates are loaded from files within the `META-INF/templates` di
 In the case of a dynamic template, your loader will completely handle the loading logic. Implement the {{< java "org.seedstack.io.spi.TemplateLoader" >}}
 interface:
 
-	public class MyDynamicTemplateLoader implements TemplateLoader<MyTemplate> {
+```java
+public class MyDynamicTemplateLoader implements TemplateLoader<MyTemplate> {
+    @Override
+    public MyTemplate load(String name) throws Exception {
+        // Gets your template from anywhere
+        return myTemplate;
+    }
 
-		@Override
-		public MyTemplate load(String name) throws Exception {
-			// Gets your template from anywhere
-			return myTemplate
-		}
+    @Override
+    Set<String> names() {
+        // Returns all the templates you know
+        return names;
+    }
 
-		@Override
-		Set<String> names() {
-			// Returns all the templates you know
-			return names;
-		}
-	
-		@Override
-		boolean contains(String name) {
-			// Checks if you know this template
-			return bool;
-		}
+    @Override
+    boolean contains(String name) {
+        // Checks if you know this template
+        return bool;
+    }
 
-		@Override
-		public String templateRenderer() {
-			// Returns the name of the associated renderer
-			return "MyTemplateRenderer";
-		}
-
-	}
+    @Override
+    public String templateRenderer() {
+        // Returns the name of the associated renderer
+        return "MyTemplateRenderer";
+    }
+}
+```
 
 # Without template
 
@@ -66,29 +66,30 @@ A renderer without template doesn't need any information to render the model. It
 that are not meant to be reusable. Extend {{< java "org.seedstack.io.spi.AbstractBaseRenderer" >}} and annotate it
 with {{< java "javax.inject.Named" "@" >}}.
 
-	@Named("custom")
-	public class CustomRenderer extends AbstractBaseRenderer {
+```java
+@Named("custom")
+public class CustomRenderer extends AbstractBaseRenderer {
+    @Override
+    public void render(OutputStream outputStream, Object model) {
+        render(outputStream, model, null, null);
+    }
 
-		public CustomRenderer() {
-		}
-	
-		@Override
-		public void render(OutputStream outputStream, Object model) {
-			render(outputStream, model, null, null);
-		}
-	
-		@Override
-		public void render(OutputStream outputStream, Object model, String mimeType, Map<String, Object> parameters) {
-			try {
-				outputStream.write("Hello World!".getBytes());
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
-	
-	}
+    @Override
+    public void render(OutputStream outputStream, Object model, String mimeType, Map<String, Object> parameters) {
+        try {
+            outputStream.write("Hello World!".getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
 
 You can inject it as usual:
 
+```java
+public class SomeClass {
 	@Renderer("custom")
-	Renderer renderer;
+	private Renderer renderer;
+}
+```

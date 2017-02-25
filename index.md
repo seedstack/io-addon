@@ -16,41 +16,48 @@ menu:
         weight: 10
 ---
 
-The IO add-on gives simple way to export and import data in multiple formats. This add-on comes with two modules:
+The IO add-on gives simple way to export and import data in multiple formats.<!--more--> 
 
- * CSV through [SuperCSV](http://super-csv.github.io/super-csv),
- * JasperReports.
+# Dependencies
 
-To use the IO add-on, add the module `io-supercsv` and/or the module `io-jasper` to your project classpath.
+The IO add-on provides a module for importing and export CSV files with [SuperCSV](http://super-csv.github.io/super-csv/):
 
-{{< dependency g="org.seedstack.addons.io" a="io-???" >}}
+{{< dependency g="org.seedstack.addons.io" a="io-supercsv" >}}
 
-# Writing CSV files
+It also provides a module for exporting with [JasperReports](http://community.jaspersoft.com/project/jasperreports-library):
+
+{{< dependency g="org.seedstack.addons.io" a="io-jasper" >}}
+
+# CSV files
+
+## Writing
 
 To export a POJO to a CSV file, make sure the `io-supercsv` module is in your classpath. We will export
 the following POJO:
 
-	public class CustomerBean {
-	
-	    private String firstName;
-	    
-	    private String lastName;
-	    
-		private int age;
-
-	}
+```java
+public class CustomerBean {
+    private String firstName;
+    private String lastName;
+    private int age;
+}
+```
 
 Add a `customerbean.csv.properties` file in `META-INF/templates` directory:
 
-	columns=firstName,lastName,age
-	firstName.name=First name
-	lastName.name=Last name
-	age.name=Age
-	age.type=int
+```properties
+columns=firstName,lastName,age
+firstName.name=First name
+lastName.name=Last name
+age.name=Age
+age.type=int
+```
 
 
 In your code, inject a renderer:
 
+```java
+public class SomeClass {
 	@Render("customerbean")
 	private Renderer renderer;
 	
@@ -59,9 +66,13 @@ In your code, inject a renderer:
 	public void exportCustomers(OuputStream os) {
 	    renderer.render(os, customers);
 	}
+}
+```
 
-Or programatically obtain the required renderer:
+Or programmatically obtain the required renderer:
 
+```java
+public class SomeClass {
 	@Inject
 	private Renderers renderers;
 
@@ -69,11 +80,15 @@ Or programatically obtain the required renderer:
 		Renderer renderer = renderers.getRendererFor(name);
 	    renderer.render(os, customers);
 	}
+}
+```
 
-# Reading CSV files
+## Reading
 
 To import the POJO, the configuration is the same as export configuration. Then inject a `Parser` with the `@Parse` annotation:
 
+```java
+public class SomeClass {
 	@Parse("customerbean")
 	private Parser<CustomerBean> parser;
 	
@@ -82,9 +97,13 @@ To import the POJO, the configuration is the same as export configuration. Then 
 	public void importCustomers(InputStream is) {
 	    customers = parser.parse(is, CustomerBean.class);
 	} 
+}
+```
 
 Or use `Parsers` to programatically obtain the required parser:
-  
+
+```java
+public class SomeClass {
 	@Inject
 	private Parsers parsers;
 
@@ -93,20 +112,25 @@ Or use `Parsers` to programatically obtain the required parser:
 	    renderer.render(os, customers);
 		customers = parser.parse(is, CustomerBean.class);
 	}
+}
+```
 
-# Writing PDF files
+# JasperReports
 
-PDF files are generated with JasperReports. Make sure to have the `io-jasper` module in your classpath and put a JRXML
-file in `META-INF/templates` directory. Example:
+JasperReports can generate multiple file formats from a common JRXML template. One of the most useful format is PDF, as in
+the following example:
 
+```java
+public class SomeClass {
 	@Render("pdftemplate")
-	Renderer renderer;
-	
-	List<CustomerBean> customers;
+	private Renderer renderer;
+	private List<CustomerBean> customers;
 	
 	public void exportCustomers(OuputStream os) {
 	    renderer.render(os, customers, "application/pdf", parameters);
 	}
+}
+```
 
 You can pass any Jasper parameter (like `SUBREPORT_DIR`) using the fourth parameter or `render()`which is a
 `Map<String, Object>`.

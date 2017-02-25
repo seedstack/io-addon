@@ -32,39 +32,39 @@ In this case, templates are loaded from files within the `META-INF/templates` di
 In the case of a dynamic template, your loader will completely handle the loading logic. Implement the {{< java "org.seedstack.io.spi.TemplateLoader" >}}
 interface:
 
-	public class MyDynamicTemplateLoader implements TemplateLoader<MyTemplate> {
+```java
+public class MyDynamicTemplateLoader implements TemplateLoader<MyTemplate> {
+    @Override
+    public MyTemplate load(String name) throws Exception {
+        // Gets your template from anywhere
+        return myTemplate;
+    }
 
-		@Override
-		public MyTemplate load(String name) throws Exception {
-			// Gets your template from anywhere
-			return myTemplate
-		}
+    @Override
+    Set<String> names() {
+        // Returns all the templates you know
+        return names;
+    }
 
-		@Override
-		Set<String> names() {
-			// Returns all the templates you know
-			return names;
-		}
+    @Override
+    boolean contains(String name) {
+        // Checks if you know this template
+        return bool;
+    }
 
-		@Override
-		boolean contains(String name) {
-			// Checks if you know this template
-			return bool;
-		}
+    @Override
+    public String templateRenderer() {
+        // Returns the name of the associated renderer if exists, null otherwise
+        return "MyTemplateRenderer";
+    }
 
-		@Override
-		public String templateRenderer() {
-			// Returns the name of the associated renderer if exists, null otherwise
-			return "MyTemplateRenderer";
-		}
-
-		@Override
-		public String templateParser() {
-			// Returns the name of the associated parser
-			return "MyTemplateParser";
-		}
-
-	}
+    @Override
+    public String templateParser() {
+        // Returns the name of the associated parser
+        return "MyTemplateParser";
+    }
+}
+```
 
 # Without template
 
@@ -72,21 +72,21 @@ A parser without template doesn't need any information to parse the model. It is
 that are not meant to be reusable. Extend {{< java "org.seedstack.io.spi.AbstractBaseParser" >}} and annotate it
 with {{< java "javax.inject.Named" "@" >}}:
 
-	@Named("custom")
-	public class CustomParser<PARSED_OBJECT> extends AbstractBaseParser<PARSED_OBJECT> {
-
-		public CustomParser() {
-		}
-
-		@Override
-		public List<PARSED_OBJECT> parse(InputStream inputStream, Class<PARSED_OBJECT> clazz) {
-            List<PARSED_OBJECT> beans = new ArrayList<PARSED_OBJECT>();
-			return beans;
-		}
-
-	}
+```java
+@Named("custom")
+public class CustomParser<PARSED_OBJECT> extends AbstractBaseParser<PARSED_OBJECT> {
+    @Override
+    public List<PARSED_OBJECT> parse(InputStream inputStream, Class<PARSED_OBJECT> clazz) {
+        List<PARSED_OBJECT> beans = new ArrayList<PARSED_OBJECT>();
+        return beans;
+    }
+}
+```
 
 You can inject it as usual:
 
+```java
+public class SomeClass {
 	@Parse("custom")
-	Parser parser;
+	private Parser parser;
+}

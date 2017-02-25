@@ -85,55 +85,56 @@ configuration, define format or provide custom validation. The available options
 
 # Example
 	
-	# General configuration
-	quote="
-	separator=;
-	endOfLine=\n
-	charsetName=UTF-8
+```properties
+# General configuration
+quote="
+separator=;
+endOfLine=\n
+charsetName=UTF-8
+columns=customerNo, firstName, lastName, birthDate, mailingAddress, married, numberOfKids, favouriteQuote, email, loyaltyPoints
 
-	columns=customerNo, firstName, lastName, birthDate, mailingAddress, married, numberOfKids, favouriteQuote, email, loyaltyPoints
-	
-	# customerNo (must be unique)
-	customerNo.name=ID
-	customerNo.nullable=false
-	customerNo.unique=true
-	
-	# firstName
-	firstName.name=First name
-	firstName.nullable=false
-	
-	# lastName
-	lastName.name=Last name
-	lastName.nullable=false
-	
-	# birthDate
-	birthDate.name=Birth date
-	birthDate.nullable=false
-	birthDate.type=date
-	birthDate.format=dd/MM/yyyy
-	
-	# mailingAddress
-	mailingAddress.name=Mailling address
-	mailingAddress.nullable=false
-	
-	# married
-	married.name=Married
-	married.nullable=true
-	birthDate.type=boolean
-	birthDate.format=Yes,No
-	
-	# numberOfKids
-	numberOfKids.name=Number of kids
-	numberOfKids.nullable=true
-	
-	# favouriteQuote
-	favouriteQuote.name=Favorite quote
-	favouriteQuote.nullable=false
-	
-	# email
-	email.name=Email
-	email.nullable=false
-	
-	# loyaltyPoints
-	loyaltyPoints.name=Loyalty points
-	loyaltyPoints.nullable=false
+# customerNo (must be unique)
+customerNo.name=ID
+customerNo.nullable=false
+customerNo.unique=true
+
+# firstName
+firstName.name=First name
+firstName.nullable=false
+
+# lastName
+lastName.name=Last name
+lastName.nullable=false
+
+# birthDate
+birthDate.name=Birth date
+birthDate.nullable=false
+birthDate.type=date
+birthDate.format=dd/MM/yyyy
+
+# mailingAddress
+mailingAddress.name=Mailling address
+mailingAddress.nullable=false
+
+# married
+married.name=Married
+married.nullable=true
+married.type=boolean
+married.format=Yes,No
+
+# numberOfKids
+numberOfKids.name=Number of kids
+numberOfKids.nullable=true
+
+# favouriteQuote
+favouriteQuote.name=Favorite quote
+favouriteQuote.nullable=false
+
+# email
+email.name=Email
+email.nullable=false
+
+# loyaltyPoints
+loyaltyPoints.name=Loyalty points
+loyaltyPoints.nullable=false
+```

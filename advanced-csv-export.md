@@ -3,9 +3,6 @@ title: "Advanced CSV"
 parent: "Document import/export"
 zones:
     - Addons
-tags:
-    - "export"
-    - "csv"
 weight: -1    
 menu:
     IOAddon:

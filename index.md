@@ -3,12 +3,6 @@ title: "Document import/export"
 repo: "https://github.com/seedstack/io-addon"
 author: Pierre THIROUIN
 description: "Provides a simple way to import and export data in multiple formats: CSV, PDF, Office documents, ..."
-tags:
-    - "document"
-    - "export"
-    - "import"
-    - "csv"
-    - "pdf"
 zones:
     - Addons
 menu:

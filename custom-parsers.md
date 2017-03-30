@@ -3,11 +3,6 @@ title: "Custom parsers"
 parent: "Document import/export"
 zones:
     - Addons
-tags:
-    - "parser"
-    - "document"
-    - "import"
-    - "template"
 weight: -1    
 menu:
     IOAddon:

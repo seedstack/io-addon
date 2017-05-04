@@ -10,7 +10,7 @@ menu:
 ---
 
 If available parsers don't fit your needs, the IO add-on provide an SPI for custom parsers. There are three options to
-provide your own parser: static template, dynamic template or without template.
+provide your own parser: static template, dynamic template or without template.<!--more-->
 
 # Static template
 

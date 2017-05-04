@@ -10,7 +10,7 @@ menu:
 ---
 
 If available renderers don't fit your needs, the IO add-on provides an SPI to register your custom renderers. There are
-three options to provide your own renderer: static template, dynamic template or without template.
+three options to provide your own renderer: static template, dynamic template or without template.<!--more-->
 
 # Static template
 

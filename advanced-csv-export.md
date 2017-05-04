@@ -10,7 +10,9 @@ menu:
 ---
 
 A CSV template is defined with a `*.csv.properties` file. This properties gives you options to change general
-configuration, define format or provide custom validation. The available options are:
+configuration, define format or provide custom validation.<!--more-->
+ 
+The available options are:
 
  <table class="table table-bordered">
  <thead>

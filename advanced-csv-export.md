@@ -1,11 +1,12 @@
 ---
 title: "Advanced CSV"
-parent: "Document import/export"
+addon: "Document I/O"
 zones:
     - Addons
 weight: -1    
 menu:
-    IOAddon:
+    Document I/O:
+        parent: "contents"
         weight: 40
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: "Advanced CSV"
 addon: "Document I/O"
+repo: "https://github.com/seedstack/io-addon"
 zones:
     - Addons
 weight: -1    

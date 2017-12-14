@@ -1,6 +1,7 @@
 ---
 title: "Overview"
 addon: "Document I/O"
+repo: "https://github.com/seedstack/io-addon"
 author: Pierre THIROUIN
 description: "Provides a simple way to import and export data in multiple formats: CSV, PDF, Office documents, ..."
 zones:

@@ -1,6 +1,7 @@
 ---
 title: "Custom renderers"
 addon: "Document I/O"
+repo: "https://github.com/seedstack/io-addon"
 zones:
     - Addons
 weight: -1    

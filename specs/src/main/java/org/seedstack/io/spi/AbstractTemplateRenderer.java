@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+/*
+ * Copyright © 2013-2020, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,7 +10,7 @@ package org.seedstack.io.spi;
 import org.seedstack.io.Renderer;
 
 /**
- * This class should be extended when you want to add a <tt>Renderer</tt> with template. <br>
+ * This class should be extended when you want to add a <code>Renderer</code> with template. <br>
  * It implements the {@link Renderer} interface
  *
  * @param <T> template

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+/*
+ * Copyright © 2013-2020, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,7 @@ package org.seedstack.io;
 
 /**
  * This class aggregates all the renderers associated to a key. In case of template renderers the key is defined by the template,
- * otherwise the key is defined by the <tt>Named</tt> annotation of the renderer.
+ * otherwise the key is defined by the <code>Named</code> annotation of the renderer.
  */
 public interface Renderers {
 

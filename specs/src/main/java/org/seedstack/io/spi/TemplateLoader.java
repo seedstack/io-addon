@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+/*
+ * Copyright © 2013-2020, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,8 +10,8 @@ package org.seedstack.io.spi;
 import java.util.Set;
 
 /**
- * A <tt>TemplateLoader</tt> is associated to an {@link org.seedstack.io.spi.AbstractTemplateRenderer}. The association is made by the name of the
- * renderer specified with <tt>templateRenderer</tt>.
+ * A <code>TemplateLoader</code> is associated to an {@link org.seedstack.io.spi.AbstractTemplateRenderer}. The association is made by the name of the
+ * renderer specified with <code>templateRenderer</code>.
  *
  * @param <T> template
  */

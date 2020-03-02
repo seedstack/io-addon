@@ -1,12 +1,7 @@
-sudo: false
-
 language: java
 
-jdk: oraclejdk8
+jdk: openjdk11
 
-notifications:
-  irc: "chat.freenode.net#seedstack-dev"
-  
 cache:
   directories:
     - "$HOME/.m2/repository"

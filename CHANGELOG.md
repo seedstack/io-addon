@@ -1,3 +1,7 @@
+# Version 3.0.1 (2020-04-30)
+
+* [chg] Update for SeedStack 20.4.
+
 # Version 3.0.0 (2016-12-16)
 
 * [chg] Update for SeedStack 16.11.

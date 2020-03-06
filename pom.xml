@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+    Copyright © 2013-2020, The SeedStack authors <http://seedstack.org>
 
     This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,16 +13,16 @@
     <parent>
         <groupId>org.seedstack.poms</groupId>
         <artifactId>parent-internal</artifactId>
-        <version>3.0.0</version>
+        <version>3.4.9-SNAPSHOT</version>
     </parent>
 
     <groupId>org.seedstack.addons.io</groupId>
     <artifactId>io</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <seed.version>3.0.0</seed.version>
+        <seed.version>3.9.1</seed.version>
 
         <compatibility.skip>true</compatibility.skip>
         <bintray.package>io-addon</bintray.package>
@@ -61,6 +61,7 @@
                             <licenseMerge>Apache 2|Apache License, Version 2.0</licenseMerge>
                             <licenseMerge>Apache 2|Apache License 2.0</licenseMerge>
                             <licenseMerge>Apache 2|Apache License, version 2.0</licenseMerge>
+                            <licenseMerge>Apache 2|Apache 2.0</licenseMerge>
                             <licenseMerge>Apache 2|Apache License Version 2.0</licenseMerge>
                             <licenseMerge>BSD|The New BSD License</licenseMerge>
                             <licenseMerge>CDDL|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
@@ -72,9 +73,11 @@
                             <licenseMerge>LGPL 3.0|GNU Lesser General Public License</licenseMerge>
                             <licenseMerge>LGPL 3.0|GNU General Public Library</licenseMerge>
                             <licenseMerge>MIT|MIT License</licenseMerge>
-
+                            <licenseMerge>MIT|MIT license</licenseMerge>
+                            <licenseMerge>MIT|The MIT License</licenseMerge>
                             <licenseMerge>IGNORED_LICENSE|LGPL 2.1</licenseMerge>
                             <licenseMerge>IGNORED_LICENSE|MPL 1.1</licenseMerge>
+                            <licenseMerge>IGNORED_LICENSE|Unknown license</licenseMerge>
                         </licenseMerges>
                     </configuration>
                 </plugin>

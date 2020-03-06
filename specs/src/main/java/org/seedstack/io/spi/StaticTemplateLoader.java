@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2013-2016, The SeedStack authors <http://seedstack.org>
+/*
+ * Copyright © 2013-2020, The SeedStack authors <http://seedstack.org>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * StaticTemplateLoader loads static templates from META-INF directory at the plugin startup. Static templates to load are defined
- * by a regex specified with <tt>templatePathRegex</tt>.
+ * by a regex specified with <code>templatePathRegex</code>.
  *
  * @param <T> template
  */

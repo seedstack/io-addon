@@ -16,7 +16,7 @@
 			<band height="37">
 				<frame>
 					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="dbf1b34f-2782-43ca-a7db-af31710bdbdd"/>
-					<textField isStretchWithOverflow="true">
+					<textField textAdjust="ScaleFont">
 						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#FFFFFF" uuid="2e451355-86c2-400f-a14e-b24f8c5ff5e6"/>
 						<textElement>
 							<font isBold="false"/>
@@ -100,7 +100,7 @@
 		<band height="18" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="d9f395c4-0504-4407-bf68-650ee187ddf6"/>
-				<textField isStretchWithOverflow="true">
+				<textField textAdjust="ScaleFont">
 					<reportElement style="Detail" positionType="Float" x="2" y="0" width="100" height="18" uuid="a7fd795f-7608-4599-9204-fbcbe1877fed"/>
 					<textElement>
 						<font size="14"/>

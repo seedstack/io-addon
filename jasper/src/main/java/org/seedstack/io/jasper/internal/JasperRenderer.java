@@ -20,7 +20,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
-import net.sf.jasperreports.engine.export.JRXhtmlExporter;
 import net.sf.jasperreports.engine.export.JRXlsAbstractExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
@@ -135,7 +134,7 @@ class JasperRenderer extends AbstractTemplateRenderer<JasperTemplate> {
             exportReport(new JRPptxExporter(), jp, os);
 
         } else if ("text/xhmtl".equalsIgnoreCase(mimeType)) {
-            exportReport(new JRXhtmlExporter(), jp, os);
+            exportReport(new HtmlExporter(), jp, os);
         } else {
             throw new IllegalArgumentException("JasperRenderer does not support " + mimeType + " MIME type.");
         }

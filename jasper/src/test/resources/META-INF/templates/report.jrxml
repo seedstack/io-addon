@@ -96,14 +96,14 @@
 		<band height="15" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="bedbd6ca-56fd-41bb-8945-e42abfe88ced"/>
-				<textField isStretchWithOverflow="true">
+				<textField textAdjust="ScaleFont">
 					<reportElement style="Detail" mode="Transparent" x="1" y="0" width="100" height="15" backcolor="#CC0000" uuid="4699264e-150f-4dd9-9e51-0f464ff34b2a"/>
 					<textElement>
 						<font fontName="AR PL KaitiM GB" size="22"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true">
+				<textField textAdjust="ScaleFont">
 					<reportElement style="Detail" x="119" y="0" width="100" height="15" uuid="aac0991f-2cb7-4cce-a5b2-64e9424dbde6"/>
 					<textElement>
                         <font fontName="DejaVu Sans" size="22"/>

@@ -87,7 +87,7 @@ class JasperRenderer extends AbstractTemplateRenderer<JasperTemplate> {
             //
             // Catch all possible fails when render a jasper report
             //
-        } catch (Exception e) {
+        } catch (RuntimeException | JRException e) {
             throw SeedException.wrap(e, JasperErrorCode.ERROR_DURING_JASPER_REPORT_RENDERING);
         }
     }

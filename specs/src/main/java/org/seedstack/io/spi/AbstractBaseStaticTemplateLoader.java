@@ -8,6 +8,7 @@
 package org.seedstack.io.spi;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import java.util.Set;
  * @param <T> template
  */
 public abstract class AbstractBaseStaticTemplateLoader<T extends Template> implements StaticTemplateLoader<T> {
-    protected Map<String, URL> templateURLs;
+    protected Map<String, URL> templateURLs = new HashMap<>();
 
     /**
      * Constructor.
@@ -37,6 +38,6 @@ public abstract class AbstractBaseStaticTemplateLoader<T extends Template> imple
     }
 
     public void setTemplateURLs(Map<String, URL> templateURLs) {
-        this.templateURLs = templateURLs;
+        this.templateURLs = new HashMap<>(templateURLs);
     }
 }

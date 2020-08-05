@@ -7,10 +7,10 @@
  */
 package org.seedstack.io.internal;
 
+import com.google.common.base.Strings;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
-import org.apache.commons.lang.StringUtils;
 import org.seedstack.io.Parser;
 import org.seedstack.io.Parsers;
 import org.seedstack.io.spi.AbstractTemplateParser;
@@ -48,7 +48,7 @@ class ParsersInternal implements Parsers {
 
         // For parsers with template
         if (templateLoader != null) {
-            if (StringUtils.isBlank(templateLoader.templateParser())) {
+            if (Strings.isNullOrEmpty(templateLoader.templateParser())) {
                 throw SeedException.createNew(IoErrorCode.NO_PARSER_FOUND)
                         .put(TEMPLATE, templateName);
             }

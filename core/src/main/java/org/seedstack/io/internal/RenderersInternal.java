@@ -7,10 +7,10 @@
  */
 package org.seedstack.io.internal;
 
+import com.google.common.base.Strings;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
-import org.apache.commons.lang.StringUtils;
 import org.seedstack.io.Renderer;
 import org.seedstack.io.Renderers;
 import org.seedstack.io.spi.AbstractTemplateRenderer;
@@ -47,7 +47,7 @@ class RenderersInternal implements Renderers {
 
         // For renderers with template
         if (templateLoader != null) {
-            if (StringUtils.isBlank(templateLoader.templateRenderer())) {
+            if (Strings.isNullOrEmpty(templateLoader.templateRenderer())) {
                 throw SeedException.createNew(IoErrorCode.NO_RENDERER_FOUND)
                         .put(TEMPLATE, templateName);
             }

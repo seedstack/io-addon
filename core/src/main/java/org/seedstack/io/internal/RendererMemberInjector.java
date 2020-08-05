@@ -7,13 +7,14 @@
  */
 package org.seedstack.io.internal;
 
+import com.google.common.base.Strings;
 import com.google.inject.MembersInjector;
 import io.nuun.kernel.api.plugin.PluginException;
-import org.apache.commons.lang.StringUtils;
 import org.seedstack.io.Render;
 import org.seedstack.io.Renderer;
 import org.seedstack.io.Renderers;
 import org.seedstack.seed.SeedException;
+import org.seedstack.shed.reflect.ReflectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,7 @@ class RendererMemberInjector<T> implements MembersInjector<T> {
     @Override
     public void injectMembers(T instance) {
         // Pre verification
-        if (StringUtils.isEmpty(annotation.value())) {
+        if (Strings.isNullOrEmpty(annotation.value())) {
             LOGGER.error("Value for annotation {} on field {} can not be null or empty.", annotation.annotationType(),
                     field.toGenericString());
             throw new PluginException("Value for annotation %s on field %s can not be null or empty.",
@@ -44,9 +45,8 @@ class RendererMemberInjector<T> implements MembersInjector<T> {
 
         try {
             Renderer renderer = renderers.getRendererFor(annotation.value());
-            field.setAccessible(true);
-            field.set(instance, renderer);
-        } catch (Exception e) {
+            ReflectUtils.setValue(ReflectUtils.makeAccessible(field), instance, renderer);
+        } catch (RuntimeException e) {
             throw SeedException.wrap(e, IoErrorCode.ERROR_LOADING_TEMPLATE);
         }
     }

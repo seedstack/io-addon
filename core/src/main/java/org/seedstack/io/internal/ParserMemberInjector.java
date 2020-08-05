@@ -8,13 +8,15 @@
 package org.seedstack.io.internal;
 
 
+import com.google.common.base.Strings;
 import com.google.inject.MembersInjector;
 import io.nuun.kernel.api.plugin.PluginException;
-import org.apache.commons.lang.StringUtils;
+import org.reflections.ReflectionUtils;
 import org.seedstack.io.Parse;
 import org.seedstack.io.Parser;
 import org.seedstack.io.Parsers;
 import org.seedstack.seed.SeedException;
+import org.seedstack.shed.reflect.ReflectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +37,7 @@ class ParserMemberInjector<T> implements MembersInjector<T> {
     @Override
     public void injectMembers(T instance) {
         // Pre verification
-        if (StringUtils.isEmpty(annotation.value())) {
+        if (Strings.isNullOrEmpty(annotation.value())) {
             LOGGER.error("Value for annotation {} on field {} can not be null or empty.", annotation.annotationType(),
                     field.toGenericString());
             throw new PluginException("Value for annotation %s on field %s can not be null or empty.",
@@ -43,10 +45,9 @@ class ParserMemberInjector<T> implements MembersInjector<T> {
         }
 
         try {
-            Parser parser = parsers.getParserFor(annotation.value());
-            field.setAccessible(true);
-            field.set(instance, parser);
-        } catch (Exception e) {
+            Parser<?> parser = parsers.getParserFor(annotation.value());
+            ReflectUtils.setValue(ReflectUtils.makeAccessible(field), instance, parser);
+        } catch (RuntimeException e) {
             throw SeedException.wrap(e, IoErrorCode.ERROR_LOADING_TEMPLATE);
         }
     }

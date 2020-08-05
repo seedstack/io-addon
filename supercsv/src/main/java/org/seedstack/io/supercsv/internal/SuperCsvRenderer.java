@@ -7,7 +7,6 @@
  */
 package org.seedstack.io.supercsv.internal;
 
-import org.apache.commons.lang.StringUtils;
 import org.seedstack.io.spi.AbstractTemplateRenderer;
 import org.seedstack.io.supercsv.SuperCsvTemplate;
 import org.seedstack.seed.SeedException;
@@ -37,7 +36,7 @@ class SuperCsvRenderer extends AbstractTemplateRenderer<SuperCsvTemplate> {
 
     @Override
     public void render(OutputStream outputStream, Object model, String mimeType, Map<String, Object> parameters) {
-        if (mimeType != null && !StringUtils.equals(mimeType, SUPPORTED_MIME_TYPE)) {
+        if (mimeType != null && !SUPPORTED_MIME_TYPE.equals(mimeType)) {
             throw new IllegalArgumentException(mimeType
                     + " not supported. SuperCsvRenderer only supports application/csv MIME type");
         }
@@ -48,12 +47,12 @@ class SuperCsvRenderer extends AbstractTemplateRenderer<SuperCsvTemplate> {
                     template.getPreferences());
 
             final List<CellProcessor> confList = template.getWritingCellProcessors();
-            final CellProcessor[] processors = confList.toArray(new CellProcessor[confList.size()]);
-            final String[] fields = template.getFields().toArray(new String[template.getFields().size()]);
+            final CellProcessor[] processors = confList.toArray(new CellProcessor[0]);
+            final String[] fields = template.getFields().toArray(new String[0]);
 
             // write the header
             if (template.showHeader()) {
-                beanWriter.writeHeader(template.getHeaders().toArray(new String[template.getHeaders().size()]));
+                beanWriter.writeHeader(template.getHeaders().toArray(new String[0]));
             }
 
             // If model is a collection, iterates over the collection

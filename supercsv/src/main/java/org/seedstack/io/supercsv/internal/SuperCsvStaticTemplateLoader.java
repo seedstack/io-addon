@@ -7,21 +7,12 @@
  */
 package org.seedstack.io.supercsv.internal;
 
-import org.apache.commons.lang.StringUtils;
+import com.google.common.base.Strings;
 import org.seedstack.io.spi.AbstractBaseStaticTemplateLoader;
 import org.seedstack.io.supercsv.Column;
 import org.seedstack.io.supercsv.SuperCsvTemplate;
 import org.seedstack.seed.SeedException;
-import org.supercsv.cellprocessor.FmtBool;
-import org.supercsv.cellprocessor.FmtDate;
-import org.supercsv.cellprocessor.FmtNumber;
-import org.supercsv.cellprocessor.Optional;
-import org.supercsv.cellprocessor.ParseBigDecimal;
-import org.supercsv.cellprocessor.ParseBool;
-import org.supercsv.cellprocessor.ParseDate;
-import org.supercsv.cellprocessor.ParseDouble;
-import org.supercsv.cellprocessor.ParseInt;
-import org.supercsv.cellprocessor.ParseLong;
+import org.supercsv.cellprocessor.*;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.constraint.UniqueHashCode;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -80,7 +71,7 @@ class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<Supe
 
             // Get the list of collumns and trim each element
             String columnList = properties.getProperty(COLUMNS);
-            if (StringUtils.isBlank(columnList)) {
+            if (Strings.isNullOrEmpty(columnList)) {
                 throw new IllegalArgumentException("The columns property must be initialized in template " + url.getFile());
             }
             String[] columns = columnList.trim().split(S_S);
@@ -116,19 +107,19 @@ class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<Supe
         String separator = properties.getProperty(SEPARATOR);
         String endOfLine = properties.getProperty(END_OF_LINE);
         String showHeader = properties.getProperty(SHOW_HEADER);
-        if (StringUtils.isNotBlank(quote)) {
+        if (!Strings.isNullOrEmpty(quote)) {
             template.setQuote(quote.charAt(0));
         }
-        if (StringUtils.isNotBlank(separator)) {
+        if (!Strings.isNullOrEmpty(separator)) {
             template.setSeparator(separator.charAt(0));
         }
-        if (StringUtils.isNotBlank(endOfLine)) {
+        if (!Strings.isNullOrEmpty(endOfLine)) {
             template.setEndOfLine(endOfLine);
         }
-        if (StringUtils.isNotBlank(charsetName)) {
+        if (!Strings.isNullOrEmpty(charsetName)) {
             template.setCharsetName(charsetName);
         }
-        if (StringUtils.isNotBlank(showHeader) && StringUtils.equals(showHeader, FALSE)) {
+        if (!Strings.isNullOrEmpty(showHeader) && FALSE.equals(showHeader)) {
             template.showHeader(false);
         } else {
             template.showHeader(true);
@@ -155,7 +146,7 @@ class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<Supe
      */
     private CellProcessor checkNullable(String nullable, CellProcessor cellProcessor) {
         CellProcessor result;
-        if (StringUtils.isBlank(nullable) || StringUtils.equalsIgnoreCase(nullable, TRUE)) {
+        if (Strings.isNullOrEmpty(nullable) || TRUE.equalsIgnoreCase(nullable)) {
             if (cellProcessor != null) {
                 result = new Optional(cellProcessor);
             } else {
@@ -179,7 +170,7 @@ class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<Supe
      */
     private CellProcessor checkUnique(String unique, CellProcessor cellProcessor) {
         CellProcessor result = cellProcessor;
-        if (StringUtils.equals(unique, TRUE)) {
+        if (TRUE.equals(unique)) {
             if (cellProcessor != null) {
                 result = new UniqueHashCode(cellProcessor);
             } else {
@@ -200,17 +191,17 @@ class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<Supe
         String type = properties.getProperty(column + TYPE);
         String format = properties.getProperty(column + FORMAT);
         CellProcessor result = cellProcessor;
-        if (StringUtils.isBlank(format)) {
+        if (Strings.isNullOrEmpty(format)) {
             return cellProcessor;
-        } else if (StringUtils.equalsIgnoreCase(type, DATE)) {
+        } else if (DATE.equalsIgnoreCase(type)) {
             result = new FmtDate(format);
 
-        } else if (StringUtils.equalsIgnoreCase(type, INTEGER) || StringUtils.equalsIgnoreCase(type, INT)
-                || StringUtils.equalsIgnoreCase(type, DOUBLE) || StringUtils.equalsIgnoreCase(type, LONG)
-                || StringUtils.equalsIgnoreCase(type, BIG_DECIMAL) || StringUtils.equalsIgnoreCase(type, NUMBER)) {
+        } else if (INTEGER.equalsIgnoreCase(type) || INT.equalsIgnoreCase(type)
+                || DOUBLE.equalsIgnoreCase(type) || LONG.equalsIgnoreCase(type)
+                || BIG_DECIMAL.equalsIgnoreCase(type) || NUMBER.equalsIgnoreCase(type)) {
             result = new FmtNumber(format);
 
-        } else if (StringUtils.equalsIgnoreCase(type, BOOLEAN)) {
+        } else if (BOOLEAN.equalsIgnoreCase(type)) {
             String[] yesNo = format.trim().split(S_S);
             result = new FmtBool(yesNo[0], yesNo[1]);
         }
@@ -229,25 +220,25 @@ class SuperCsvStaticTemplateLoader extends AbstractBaseStaticTemplateLoader<Supe
         String format = properties.getProperty(column + FORMAT);
 
         CellProcessor result = cellProcessor;
-        if (StringUtils.isNotBlank(format) && StringUtils.equalsIgnoreCase(type, DATE)) {
+        if (!Strings.isNullOrEmpty(format) && DATE.equalsIgnoreCase(type)) {
             result = new ParseDate(format);
 
-        } else if (StringUtils.equalsIgnoreCase(type, NUMBER)) {
+        } else if (NUMBER.equalsIgnoreCase(type)) {
             result = new ParseDouble();
 
-        } else if (StringUtils.equalsIgnoreCase(type, INT) || StringUtils.equalsIgnoreCase(type, INTEGER)) {
+        } else if (INT.equalsIgnoreCase(type) || INTEGER.equalsIgnoreCase(type)) {
             result = new ParseInt();
 
-        } else if (StringUtils.equalsIgnoreCase(type, DOUBLE)) {
+        } else if (DOUBLE.equalsIgnoreCase(type)) {
             result = new ParseDouble();
 
-        } else if (StringUtils.equalsIgnoreCase(type, LONG)) {
+        } else if (LONG.equalsIgnoreCase(type)) {
             result = new ParseLong();
 
-        } else if (StringUtils.equalsIgnoreCase(type, BIG_BECIMAL)) {
+        } else if (BIG_BECIMAL.equalsIgnoreCase(type)) {
             result = new ParseBigDecimal();
 
-        } else if (StringUtils.isNotBlank(format) && StringUtils.equalsIgnoreCase(type, BOOLEAN)) {
+        } else if (!Strings.isNullOrEmpty(format) && BOOLEAN.equalsIgnoreCase(type)) {
             String[] yesNo = format.trim().split(S_S);
             result = new ParseBool(yesNo[0], yesNo[1]);
         }

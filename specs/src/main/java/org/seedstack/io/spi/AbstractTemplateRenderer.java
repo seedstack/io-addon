@@ -7,6 +7,7 @@
  */
 package org.seedstack.io.spi;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.seedstack.io.Renderer;
 
 /**
@@ -20,6 +21,7 @@ public abstract class AbstractTemplateRenderer<T> implements Renderer {
     /**
      * Renderer template
      */
+    @SuppressFBWarnings(value = "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", justification = "used in subclasses")
     protected T template;
 
     /**

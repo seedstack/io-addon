@@ -1,6 +1,6 @@
 # Version 3.0.1 (2020-04-30)
 
-* [chg] Updated to SeedStack 20.4.
+* [chg] Updated to SeedStack 20.7.
 * [chg] Updated to Jasper 6.12.1.
 
 # Version 3.0.0 (2016-12-16)

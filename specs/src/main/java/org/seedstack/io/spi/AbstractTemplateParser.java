@@ -7,6 +7,7 @@
  */
 package org.seedstack.io.spi;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.seedstack.io.Parser;
 
 import java.io.InputStream;
@@ -23,6 +24,7 @@ public abstract class AbstractTemplateParser<TEMPLATE, PARSED_OBJECT> implements
     /**
      * Parser template
      */
+    @SuppressFBWarnings(value = "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", justification = "used in subclasses")
     protected TEMPLATE template;
 
     /**

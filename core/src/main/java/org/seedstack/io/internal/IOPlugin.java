@@ -13,26 +13,21 @@ import io.nuun.kernel.api.plugin.context.Context;
 import io.nuun.kernel.api.plugin.context.InitContext;
 import io.nuun.kernel.api.plugin.request.ClasspathScanRequest;
 import io.nuun.kernel.api.plugin.request.ClasspathScanRequestBuilder;
-import org.apache.commons.lang.StringUtils;
-import org.kametic.specifications.Specification;
 import org.seedstack.io.Parser;
 import org.seedstack.io.Renderer;
 import org.seedstack.io.spi.StaticTemplateLoader;
 import org.seedstack.io.spi.TemplateLoader;
 import org.seedstack.seed.core.internal.AbstractSeedPlugin;
-import org.seedstack.seed.core.internal.utils.SpecificationBuilder;
 import org.seedstack.shed.reflect.ClassPredicates;
+import org.seedstack.shed.reflect.Classes;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,18 +35,15 @@ import java.util.regex.Pattern;
  * This plugin is responsible for detecting templates, renderers and parsers.
  */
 public class IOPlugin extends AbstractSeedPlugin {
-    private static final Specification<Class<?>> templateLoaderSpec = new SpecificationBuilder<>(ClassPredicates.classIsDescendantOf(TemplateLoader.class)
+    private static final Predicate<Class<?>> templateLoaderSpec = ClassPredicates.classIsDescendantOf(TemplateLoader.class)
             .and(ClassPredicates.classIsInterface().negate())
-            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate())
-    ).build();
-    private static final Specification<Class<?>> rendererSpec = new SpecificationBuilder<>(ClassPredicates.classIsDescendantOf(Renderer.class)
+            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate());
+    private static final Predicate<Class<?>> rendererSpec = ClassPredicates.classIsDescendantOf(Renderer.class)
             .and(ClassPredicates.classIsInterface().negate())
-            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate())
-    ).build();
-    private static final Specification<Class<?>> parserSpec = new SpecificationBuilder<>(ClassPredicates.classIsDescendantOf(Parser.class)
+            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate());
+    private static final Predicate<Class<?>> parserSpec = ClassPredicates.classIsDescendantOf(Parser.class)
             .and(ClassPredicates.classIsInterface().negate())
-            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate())
-    ).build();
+            .and(ClassPredicates.classModifierIs(Modifier.ABSTRACT).negate());
     private static final String META_INF_TEMPLATES = "META-INF/templates/";
     private final List<StaticTemplateLoader<?>> templateLoaderRegexs = new ArrayList<>();
     private final List<TemplateLoader<?>> templateLoaders = new ArrayList<>();
@@ -77,9 +69,9 @@ public class IOPlugin extends AbstractSeedPlugin {
         // Scan templateLoaders
         if (round.isFirst()) {
             return classpathScanRequestBuilder()
-                    .specification(templateLoaderSpec)
-                    .specification(rendererSpec)
-                    .specification(parserSpec)
+                    .predicate(templateLoaderSpec)
+                    .predicate(rendererSpec)
+                    .predicate(parserSpec)
                     .build();
         } else {
             // for each templateLoader with regex, parse "META-INF/templates/" directory to find corresponding templates
@@ -95,7 +87,7 @@ public class IOPlugin extends AbstractSeedPlugin {
     @Override
     public InitState initialize(InitContext initContext) {
         if (round.isFirst()) {
-            Map<Specification, Collection<Class<?>>> scannedClassesByAnnotationClass = initContext.scannedTypesBySpecification();
+            Map<Predicate<Class<?>>, Collection<Class<?>>> scannedClassesByAnnotationClass = initContext.scannedTypesByPredicate();
 
             // Gets all implementation of TemplateLoader
             Collection<Class<?>> templateLoaderClasses = scannedClassesByAnnotationClass.get(templateLoaderSpec);
@@ -106,16 +98,7 @@ public class IOPlugin extends AbstractSeedPlugin {
 
                         if (StaticTemplateLoader.class.isAssignableFrom(templateLoaderClass)) {
                             Class<StaticTemplateLoader<?>> staticTemplateLoaderClass = (Class<StaticTemplateLoader<?>>) templateLoaderClass;
-                            StaticTemplateLoader<?> staticTemplateLoader;
-                            try {
-                                Constructor<StaticTemplateLoader<?>> declaredConstructor = staticTemplateLoaderClass.getDeclaredConstructor();
-                                declaredConstructor.setAccessible(true);
-                                staticTemplateLoader = declaredConstructor.newInstance();
-                            } catch (Exception e) {
-                                throw new RuntimeException("Unable to instantiate StaticTemplateLoader " + staticTemplateLoaderClass.getCanonicalName(), e);
-                            }
-                            templateLoaderRegexs.add(staticTemplateLoader);
-
+                            templateLoaderRegexs.add(Classes.instantiateDefault(staticTemplateLoaderClass));
                         } else {
                             Class<TemplateLoader<?>> dynamicTemplateLoaderClass = (Class<TemplateLoader<?>>) templateLoaderClass;
                             TemplateLoader<?> dynamicTemplateLoader;
@@ -161,7 +144,7 @@ public class IOPlugin extends AbstractSeedPlugin {
                 Collection<String> templateUrls = mapResourcesByRegex.get(staticTemplateLoader.templatePathRegex());
                 for (String templateUrl : templateUrls) {
                     if (templateUrl.startsWith(META_INF_TEMPLATES)) {
-                        String templateName = StringUtils.substringAfter(templateUrl, META_INF_TEMPLATES);
+                        String templateName = substringAfter(templateUrl, META_INF_TEMPLATES);
                         Matcher matcher = Pattern.compile(staticTemplateLoader.templatePathRegex()).matcher(templateName);
                         if (matcher.matches()) {
                             URL url = IOPlugin.class.getResource("/" + templateUrl);
@@ -192,4 +175,12 @@ public class IOPlugin extends AbstractSeedPlugin {
         return new IOModule(templateLoaders, renderers, parsers);
     }
 
+    private String substringAfter(String str, String sep) {
+        int idx = str.indexOf(sep);
+        if (idx == -1) {
+            return str;
+        } else {
+            return str.substring(idx + sep.length());
+        }
+    }
 }

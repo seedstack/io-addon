@@ -7,15 +7,9 @@
  */
 package org.seedstack.io.jasper.fixtures;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
+import com.google.common.base.Preconditions;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.seedstack.io.spi.AbstractBaseRenderer;
 
 import javax.inject.Named;
@@ -31,7 +25,7 @@ public class CustomXlsRenderer extends AbstractBaseRenderer {
 
     @Override
     public void render(OutputStream outputStream, Object model, String mimeType, Map<String, Object> parameters) {
-        Validate.isTrue(StringUtils.equals(mimeType, "application/xls"));
+        Preconditions.checkState("application/xls".equals(mimeType));
         try {
             Workbook wb = new HSSFWorkbook();
             Sheet sheet = wb.createSheet("new sheet");

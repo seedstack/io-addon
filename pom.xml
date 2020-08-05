@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.seedstack.poms</groupId>
         <artifactId>parent-internal</artifactId>
-        <version>3.4.9-SNAPSHOT</version>
+        <version>3.4.9</version>
     </parent>
 
     <groupId>org.seedstack.addons.io</groupId>
@@ -22,7 +22,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <seed.version>3.9.1</seed.version>
+        <seed.version>3.10.0-SNAPSHOT</seed.version>
 
         <compatibility.skip>true</compatibility.skip>
         <bintray.package>io-addon</bintray.package>

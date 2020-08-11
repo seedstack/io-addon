@@ -2,6 +2,7 @@
 
 * [chg] Updated to SeedStack 20.7.
 * [chg] Updated to Jasper 6.12.1.
+* [chg] Updated to SuperCSV 2.4.0.
 
 # Version 3.0.0 (2016-12-16)
 

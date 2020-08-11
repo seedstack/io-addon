@@ -22,7 +22,10 @@
     <packaging>pom</packaging>
 
     <properties>
-        <seed.version>3.10.0-SNAPSHOT</seed.version>
+        <seed.version>3.10.0</seed.version>
+        <super-csv.version>2.4.0</super-csv.version>
+        <jasper.version>6.12.1</jasper.version>
+        <commons-logging.version>1.2</commons-logging.version>
 
         <compatibility.skip>true</compatibility.skip>
         <bintray.package>io-addon</bintray.package>

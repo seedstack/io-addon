@@ -19,11 +19,6 @@
 
     <artifactId>io-jasper</artifactId>
 
-    <properties>
-        <jasper.version>6.12.1</jasper.version>
-        <commons-logging.version>1.2</commons-logging.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.seedstack.addons.io</groupId>

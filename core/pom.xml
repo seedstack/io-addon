@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.seedstack.addons.io</groupId>
         <artifactId>io</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>io-core</artifactId>
